@@ -12,7 +12,6 @@ import ControladorJPABodega.MedicoBodegaJpaController;
 import ControladorJPA.MedicoJpaController;
 import ControladorJPABodega.exceptions.PreexistingEntityException;
 import Entidades_Bodega.IpsBodega;
-import Entidades_Bodega.IpsBodega_;
 import Entidades_Bodega.MedicoBodega;
 import Entidades_DB.Medico;
 import java.util.List;
