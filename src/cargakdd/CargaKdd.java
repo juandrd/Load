@@ -34,13 +34,29 @@ public class CargaKdd {
         //-------------------------------
         
         //CARGA DE IPS
-        IPSCarga ips=new IPSCarga();
+//        IPSCarga ips=new IPSCarga();
+//        try {
+//            ips.carga();
+//        } catch (PreexistingEntityException ex) {
+//            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (Exception ex) {
+//            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        
+        //-------------------------------
+        
+        //CARGA DE MEDICO        
+             
+        MedicoCarga medico=new MedicoCarga();
         try {
-            ips.carga();
+            medico.carga();
         } catch (PreexistingEntityException ex) {
             Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        //-------------------------------
+        
     }
 }

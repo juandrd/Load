@@ -392,4 +392,20 @@ public class IpsBodegaJpaController implements Serializable {
         }
     }
     
+     public IpsBodega consultarPorId(String id) {
+
+         IpsBodega ips=new IpsBodega();
+         List lista;
+         lista=findIpsBodegaEntities();
+         
+          for (int i = 0; i < lista.size(); i++) {
+              IpsBodega d=(IpsBodega) lista.get(i);
+              if(d.getCodigoIps().toString().equalsIgnoreCase(id)){                  
+                  ips=d;
+              }
+          }
+
+        return ips;
+    }
+    
 }
