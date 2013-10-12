@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="CargaKddPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>Entidades_DB.Retiros</class>
+    <class>Entidades_DB.CitasGenerales</class>
+    <class>Entidades_DB.Pagos</class>
+    <class>Entidades_DB.Urgencias</class>
+    <class>Entidades_DB.Medicamento</class>
+    <class>Entidades_DB.Beneficiario</class>
+    <class>Entidades_DB.Preexistencias</class>
+    <class>Entidades_DB.Drogueria</class>
+    <class>Entidades_DB.Empresa</class>
+    <class>Entidades_DB.Medico</class>
+    <class>Entidades_DB.ServiciosPos</class>
+    <class>Entidades_DB.Ips</class>
+    <class>Entidades_DB.Cotizante</class>
+    <class>Entidades_DB.Hospitalizaciones</class>
+    <class>Entidades_DB.Remisiones</class>
+    <class>Entidades_DB.FormulasMedicas</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/dwh?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.password" value="juan"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="eclipselink.ddl-generation" value="create-tables"/>
+    </properties>
+  </persistence-unit>
+  <persistence-unit name="Bodega_Datos" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>Entidades_Bodega.AfiliacionesBodega</class>
+    <class>Entidades_Bodega.CitasBodega</class>
+    <class>Entidades_Bodega.Dates</class>
+    <class>Entidades_Bodega.DemografiaPacienteBodega</class>
+    <class>Entidades_Bodega.DepartamentoBodega</class>
+    <class>Entidades_Bodega.DiagnosticoBodega</class>
+    <class>Entidades_Bodega.EmpresaBodega</class>
+    <class>Entidades_Bodega.FormulasBodega</class>
+    <class>Entidades_Bodega.IpsBodega</class>
+    <class>Entidades_Bodega.MedicamentoBodega</class>
+    <class>Entidades_Bodega.MedicoBodega</class>
+    <class>Entidades_Bodega.PacienteBodega</class>
+    <class>Entidades_Bodega.PagosBodega</class>
+    <class>Entidades_Bodega.PreexistenciaBodega</class>
+    <class>Entidades_Bodega.RemisionesBodega</class>
+    <class>Entidades_Bodega.RetirosBodega</class>
+    <class>Entidades_Bodega.ServicioPosBodega</class>
+    <class>Entidades_Bodega.UrgenciasBodega</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/bodega?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.password" value="juan"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="eclipselink.ddl-generation" value="create-tables"/>
+    </properties>
+  </persistence-unit>
+</persistence>
