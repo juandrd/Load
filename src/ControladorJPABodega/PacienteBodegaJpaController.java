@@ -528,5 +528,22 @@ public class PacienteBodegaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public PacienteBodega consultarPorId(String id) {
+
+        PacienteBodega paciente = new PacienteBodega();
+        List lista;
+        lista = findPacienteBodegaEntities();
+
+        for (int i = 0; i < lista.size(); i++) {
+            PacienteBodega d = (PacienteBodega) lista.get(i);
+            if (d.getIdPaciente().toString().equalsIgnoreCase(id)) {
+                paciente = d;
+                break;
+            }
+
+        }
+
+        return paciente;
+    }
 }

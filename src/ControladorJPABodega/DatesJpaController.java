@@ -22,6 +22,7 @@ import Entidades_Bodega.Dates;
 import Entidades_Bodega.RetirosBodega;
 import Entidades_Bodega.UrgenciasBodega;
 import Entidades_Bodega.RemisionesBodega;
+import java.sql.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -527,6 +528,25 @@ public class DatesJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+     public Dates consultar(String f) {
+
+         Dates fecha=new Dates();
+         List lista;
+         lista=findDatesEntities();
+         
+          for (int i = 0; i < lista.size(); i++) {
+              Dates d=(Dates) lista.get(i);
+              
+              String fechaEncontrada=d.getDate().toString();
+             
+              if(fechaEncontrada.equals(f)){                  
+                  fecha=d;
+                  // System.err.println(fechaEncontrada);
+              }
+          }
+
+        return fecha;
     }
     
 }

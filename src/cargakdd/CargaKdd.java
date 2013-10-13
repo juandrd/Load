@@ -83,9 +83,21 @@ public class CargaKdd {
              //-------------------------------
         
          //Carga ServicioPOS
-        ServicioPOSCarga servicioPOS = new ServicioPOSCarga();
+//        ServicioPOSCarga servicioPOS = new ServicioPOSCarga();
+//        try {
+//            servicioPOS.carga();
+//        } catch (PreexistingEntityException ex) {
+//            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (Exception ex) {
+//            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        
+           //-------------------------------
+        
+         //Carga Retiros
+        RetirosCarga retiro = new RetirosCarga();
         try {
-            servicioPOS.carga();
+            retiro.carga();
         } catch (PreexistingEntityException ex) {
             Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
