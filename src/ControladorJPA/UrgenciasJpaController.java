@@ -198,6 +198,7 @@ public class UrgenciasJpaController implements Serializable {
                 System.out.println(contador + 1 + " " + urgencia.getDiagnostico().toString());
                 diag.setDescripcion(urgencia.getDiagnostico().toString());
                 controladorDiag.create(diag);
+                contador++;
             }
         }
     }

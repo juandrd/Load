@@ -317,7 +317,7 @@ public class DiagnosticoBodegaJpaController implements Serializable {
          int contador=0;
         
               lista=findDiagnosticoBodegaEntities();
-             System.out.println(lista);           
+            // System.out.println(lista);           
         
         
          if(lista.isEmpty()){
