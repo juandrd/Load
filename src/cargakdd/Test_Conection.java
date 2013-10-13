@@ -24,7 +24,7 @@ public class Test_Conection {
             //Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
             url = "jdbc:mysql://" + servidor + "/" + database + "";
             conexion = DriverManager.getConnection(url, usuario, password);
-            System.out.println("Conexion a Base de Datos " + url + " . . . . .Ok");
+          //  System.out.println("Conexion a Base de Datos " + url + " . . . . .Ok");
 
         } catch (SQLException ex) {
             System.out.println(ex);

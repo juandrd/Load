@@ -379,7 +379,7 @@ public class PreexistenciaBodegaJpaController implements Serializable {
              
               if(emp.getIdPaciente().toString().equalsIgnoreCase(f)){                  
                   preexistencia=emp;
-                  System.out.println(preexistencia);
+                 // System.out.println(preexistencia);
                   break;
               }
           }

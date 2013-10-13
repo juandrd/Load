@@ -22,6 +22,7 @@ import Entidades_Bodega.PagosBodega;
 import Entidades_Bodega.PagosBodegaPK;
 import Entidades_Bodega.PreexistenciaBodega;
 import Entidades_DB.Pagos;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -55,13 +56,13 @@ public class PagoCarga {
         EmpresaBodegaJpaController empresa = new EmpresaBodegaJpaController(fabrica_bodega.getFactory());
         PreexistenciaBodegaJpaController preexistencia = new PreexistenciaBodegaJpaController(fabrica_bodega.getFactory());
 
-
+        int contador = 0;
         lista = controladorBD.findPagosEntities();
         for (int i = 0; i < lista.size(); i++) {
 
             Pagos pago = (Pagos) lista.get(i);
-            System.out.println("id transaccion " + pago.getIDTransaccion());
-            System.out.println(pago.getIDUsuario());
+           // System.out.println("id transaccion " + pago.getIDTransaccion());
+            //System.out.println(pago.getIDUsuario());
 
             String buscar = pago.getIDUsuario().toString();
             String user = "";
@@ -86,24 +87,39 @@ public class PagoCarga {
 
 
             //Obtener codigo Depto
+            //System.out.println("Id " + user);
 
-            System.out.println("Id " + user);
             PacienteBodega p = paciente.consultarPorId(user);
-            System.out.println("llave " + p.getPacienteKey());
+            // System.out.println("llave " + p.getPacienteKey());
             DemografiaPacienteBodega demog = demografia.findDemografiaPacienteBodega(p.getPacienteKey());
             Dates f = date.consultar(pago.getFechaPago().toString());
 
             Test_Conection conexion = new Test_Conection();
             conexion.getConexion();
-            List empresaLista = conexion.consultarEmpresa(user);
+            List empresaLista;
+            EmpresaBodega emp;
+          
+            try {
+                empresaLista = conexion.consultarEmpresa(user);
+                emp = empresa.consultar(empresaLista.get(0).toString());
+            } catch (Exception e) {
+                empresaLista = new LinkedList();
+                emp = new EmpresaBodega();
+                emp.setEmpresaKey(999999);            
+                
+            }
 
-            EmpresaBodega emp = empresa.consultar(empresaLista.get(0).toString());
             PreexistenciaBodega pre = preexistencia.consultar(user);
             PagosBodega pagoNuevo = new PagosBodega();
+            PagosBodegaPK pk;
+            if (emp.getEmpresaKey() == 999999) {
+                 pk = new PagosBodegaPK(p.getPacienteKey(), demog.getDemografiaPacienteKey(), f.getDateId(), 0,
+                        pre.getPreexistenciaKey());
 
-            PagosBodegaPK pk = new PagosBodegaPK(p.getPacienteKey(), demog.getDemografiaPacienteKey(), f.getDateId(), emp.getEmpresaKey(),
-                    pre.getPreexistenciaKey());
-            //para aÃ±adir campos
+            } else {
+                 pk = new PagosBodegaPK(p.getPacienteKey(), demog.getDemografiaPacienteKey(), f.getDateId(), emp.getEmpresaKey(),
+                        pre.getPreexistenciaKey());
+            } //para aÃ±adir campos
 
             pagoNuevo.setDates(f);
             pagoNuevo.setDemografiaPacienteBodega(demog);
@@ -113,6 +129,8 @@ public class PagoCarga {
             pagoNuevo.setValorPagado(pago.getValorPagado());
             pagoNuevo.setPagosBodegaPK(pk);
             controladorPagoBodega.create(pagoNuevo);
+            contador++;
+            System.err.println(contador);
 
         }
     }
