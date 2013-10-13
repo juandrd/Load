@@ -542,7 +542,7 @@ public class DatesJpaController implements Serializable {
              
               if(fechaEncontrada.equals(f)){                  
                   fecha=d;
-                  // System.err.println(fechaEncontrada);
+                  System.err.println(fechaEncontrada);
               }
           }
 

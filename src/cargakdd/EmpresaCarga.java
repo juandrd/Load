@@ -53,7 +53,7 @@ public class EmpresaCarga {
 
             empresaNueva.setEmpresaKey(i + 1);
             empresaNueva.setNit(empresa.getNit().toString());
-            empresaNueva.setNombre(empresa.getDireccion().toString());            
+            empresaNueva.setNombre(empresa.getNombre().toString());            
             empresaNueva.setDireccion(empresa.getDireccion().toString());
             empresaNueva.setCantidadEmpleados(empresa.getTotalEmpleados());
             empresaNueva.setActividadComercial(empresa.getActividadEconomica().toString());

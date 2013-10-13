@@ -367,4 +367,24 @@ public class PreexistenciaBodegaJpaController implements Serializable {
         }
     }
     
+     public PreexistenciaBodega consultar(String f) {          
+          
+         PreexistenciaBodega preexistencia=new PreexistenciaBodega();
+         List lista;
+         lista=findPreexistenciaBodegaEntities();
+         
+          for (int i = 0; i < lista.size(); i++) {
+              PreexistenciaBodega emp=(PreexistenciaBodega) lista.get(i);             
+              
+             
+              if(emp.getIdPaciente().toString().equalsIgnoreCase(f)){                  
+                  preexistencia=emp;
+                  System.out.println(preexistencia);
+                  break;
+              }
+          }
+
+        return preexistencia;
+    }
+    
 }

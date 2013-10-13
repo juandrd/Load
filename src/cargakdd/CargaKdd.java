@@ -108,15 +108,25 @@ public class CargaKdd {
                  //-------------------------------
         
          //Carga Empresa
-//        EmpresaCarga empresa = new EmpresaCarga();
+        EmpresaCarga empresa = new EmpresaCarga();
+        try {
+            empresa.carga();
+        } catch (PreexistingEntityException ex) {
+            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+                    //-------------------------------
+        
+         //Carga Pago
+//        PagoCarga pago = new PagoCarga();
 //        try {
-//            empresa.carga();
+//            pago.carga();
 //        } catch (PreexistingEntityException ex) {
 //            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
 //        } catch (Exception ex) {
 //            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-        
-    
     }
 }

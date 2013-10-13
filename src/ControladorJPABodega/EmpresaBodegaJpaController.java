@@ -313,4 +313,24 @@ public class EmpresaBodegaJpaController implements Serializable {
         }
     }
     
+      public EmpresaBodega consultar(String f) {
+          
+          
+         EmpresaBodega empresa=new EmpresaBodega();
+         List lista;
+         lista=findEmpresaBodegaEntities();
+         
+          for (int i = 0; i < lista.size(); i++) {
+              EmpresaBodega emp=(EmpresaBodega) lista.get(i);             
+              
+             
+              if(emp.getNit().toString().equalsIgnoreCase(f)){                  
+                  empresa=emp;                 
+                  break;
+              }
+          }
+
+        return empresa;
+    }
+    
 }
