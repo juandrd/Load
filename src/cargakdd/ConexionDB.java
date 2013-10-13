@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Test_Conection {
+public class ConexionDB {
 
     private Connection conexion = null;
     private String servidor = "localhost:3306";
@@ -17,7 +17,7 @@ public class Test_Conection {
     private String password = "juan";
     private String url = "";
 
-    public Test_Conection() {
+    public ConexionDB() {
         try {
 
             Class.forName("com.mysql.jdbc.Driver");

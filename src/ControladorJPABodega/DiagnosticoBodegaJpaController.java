@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import Entidades_Bodega.UrgenciasBodega;
 import Entidades_Bodega.RemisionesBodega;
+import Entidades_DB.CitasGenerales;
+import java.util.LinkedList;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -307,6 +309,28 @@ public class DiagnosticoBodegaJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+    
+     public Boolean consultarPorNombre(String nombre) {         
+       
+         List lista;
+         int contador=0;
+        
+              lista=findDiagnosticoBodegaEntities();
+             System.out.println(lista);           
+        
+        
+         if(lista.isEmpty()){
+             return false;
+         }
+          for (int i = contador; i < lista.size(); i++) {
+            DiagnosticoBodega d=(DiagnosticoBodega)lista.get(i);
+            if(d.getDescripcion().toString().equalsIgnoreCase(nombre)){
+                return true;
+            }
+           }          
+
+        return false;
     }
     
 }

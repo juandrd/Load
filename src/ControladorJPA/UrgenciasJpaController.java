@@ -6,6 +6,10 @@ package ControladorJPA;
 
 import ControladorJPA.exceptions.NonexistentEntityException;
 import ControladorJPA.exceptions.PreexistingEntityException;
+import ControladorJPABodega.DiagnosticoBodegaJpaController;
+import ControladorJPABodega.FabricaBodega;
+import Entidades_Bodega.DiagnosticoBodega;
+import Entidades_DB.CitasGenerales;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
@@ -22,6 +26,8 @@ import javax.persistence.EntityManagerFactory;
  * @author USER
  */
 public class UrgenciasJpaController implements Serializable {
+
+    private FabricaBodega fabrica_bodega;
 
     public UrgenciasJpaController(EntityManagerFactory emf) {
         this.emf = emf;
@@ -169,5 +175,30 @@ public class UrgenciasJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public void crearDiagnostico() throws ControladorJPABodega.exceptions.PreexistingEntityException, Exception {
+        fabrica_bodega = new FabricaBodega();
+        DiagnosticoBodegaJpaController controladorDiag = new DiagnosticoBodegaJpaController(fabrica_bodega.getFactory());
+
+        List lista;
+        lista = findUrgenciasEntities();
+        int contador = 0;
+
+        contador = controladorDiag.getDiagnosticoBodegaCount();
+
+        for (int i = 0; i < lista.size(); i++) {
+            Urgencias urgencia = (Urgencias) lista.get(i);
+
+            DiagnosticoBodega diag = new DiagnosticoBodega();
+
+            if (controladorDiag.consultarPorNombre(urgencia.getDiagnostico().toString())) {
+                break;
+            } else {
+                diag.setDiagnosticoKey(contador + 1);
+                System.out.println(contador + 1 + " " + urgencia.getDiagnostico().toString());
+                diag.setDescripcion(urgencia.getDiagnostico().toString());
+                controladorDiag.create(diag);
+            }
+        }
+    }
 }

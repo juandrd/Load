@@ -6,6 +6,7 @@ package ControladorJPA;
 
 import ControladorJPA.exceptions.NonexistentEntityException;
 import ControladorJPA.exceptions.PreexistingEntityException;
+import Entidades_Bodega.DiagnosticoBodega;
 import Entidades_DB.FormulasMedicas;
 import java.io.Serializable;
 import javax.persistence.Query;
@@ -13,6 +14,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import Entidades_DB.Medico;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -170,4 +172,6 @@ public class FormulasMedicasJpaController implements Serializable {
         }
     }
     
+    
+  
 }

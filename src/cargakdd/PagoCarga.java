@@ -94,7 +94,7 @@ public class PagoCarga {
             DemografiaPacienteBodega demog = demografia.findDemografiaPacienteBodega(p.getPacienteKey());
             Dates f = date.consultar(pago.getFechaPago().toString());
 
-            Test_Conection conexion = new Test_Conection();
+            ConexionDB conexion = new ConexionDB();
             conexion.getConexion();
             List empresaLista;
             EmpresaBodega emp;

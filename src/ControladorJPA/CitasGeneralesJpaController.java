@@ -6,6 +6,9 @@ package ControladorJPA;
 
 import ControladorJPA.exceptions.NonexistentEntityException;
 import ControladorJPA.exceptions.PreexistingEntityException;
+import ControladorJPABodega.DiagnosticoBodegaJpaController;
+import ControladorJPABodega.FabricaBodega;
+import Entidades_Bodega.DiagnosticoBodega;
 import Entidades_DB.CitasGenerales;
 import java.io.Serializable;
 import javax.persistence.Query;
@@ -13,6 +16,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import Entidades_DB.Medico;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -22,6 +26,8 @@ import javax.persistence.EntityManagerFactory;
  * @author USER
  */
 public class CitasGeneralesJpaController implements Serializable {
+
+    private FabricaBodega fabrica_bodega;
 
     public CitasGeneralesJpaController(EntityManagerFactory emf) {
         this.emf = emf;
@@ -169,5 +175,29 @@ public class CitasGeneralesJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public void crearDiagnostico() throws ControladorJPABodega.exceptions.PreexistingEntityException, Exception {
+        fabrica_bodega = new FabricaBodega();
+        DiagnosticoBodegaJpaController controladorDiag = new DiagnosticoBodegaJpaController(fabrica_bodega.getFactory());
+
+        List lista;
+        lista = findCitasGeneralesEntities();
+        int contador = 0;
+
+        contador = controladorDiag.getDiagnosticoBodegaCount();
+        for (int i = 0; i < lista.size(); i++) {
+
+            CitasGenerales cita = (CitasGenerales) lista.get(i);
+            DiagnosticoBodega diag = new DiagnosticoBodega();
+
+            if (controladorDiag.consultarPorNombre(cita.getDiagnostico().toString())) {
+                break;
+            } else {
+                diag.setDiagnosticoKey(contador + 1);
+                System.out.println(contador + 1 + " " + cita.getDiagnostico().toString());
+                diag.setDescripcion(cita.getDiagnostico().toString());
+                controladorDiag.create(diag);
+            }
+        }
+    }
 }

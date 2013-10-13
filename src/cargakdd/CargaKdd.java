@@ -20,7 +20,7 @@ public class CargaKdd {
      */
     public static void main(String[] args) {
 
-        //CARGA DE LOS MEDICAMENTOS
+//        //CARGA DE LOS MEDICAMENTOS
 //        MedicamentoCarga medicamento=new MedicamentoCarga();
 //        try {
 //            medicamento.carga();
@@ -31,9 +31,9 @@ public class CargaKdd {
 //        }
 
 
-        //-------------------------------
+//        //-------------------------------
 
-        //CARGA DE IPS
+//        //CARGA DE IPS
 //        IPSCarga ips=new IPSCarga();
 //        try {
 //            ips.carga();
@@ -43,9 +43,9 @@ public class CargaKdd {
 //            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 
-        //-------------------------------
+//        //-------------------------------
 
-        //CARGA DE MEDICO        
+//        //CARGA DE MEDICO        
 
 //        MedicoCarga medico=new MedicoCarga();
 //        try {
@@ -56,9 +56,9 @@ public class CargaKdd {
 //            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 
-        //-------------------------------
+//        //-------------------------------
 
-        //Carga Paciente y Demografia
+//        //Carga Paciente y Demografia
 //         PacienteYDemografiaCarga paciente=new PacienteYDemografiaCarga();
 //        try {
 //            paciente.carga();
@@ -68,9 +68,9 @@ public class CargaKdd {
 //            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
 //        }
         
-        //-------------------------------
+//        //-------------------------------
         
-        //Carga Preexistencia
+//        //Carga Preexistencia
 //        PreexistenciaCarga preexistencia = new PreexistenciaCarga();
 //        try {
 //            preexistencia.carga();
@@ -80,9 +80,9 @@ public class CargaKdd {
 //            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
 //        }
         
-             //-------------------------------
+//             //-------------------------------
         
-         //Carga ServicioPOS
+//         //Carga ServicioPOS
 //        ServicioPOSCarga servicioPOS = new ServicioPOSCarga();
 //        try {
 //            servicioPOS.carga();
@@ -92,9 +92,9 @@ public class CargaKdd {
 //            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
 //        }
         
-           //-------------------------------
+//           //-------------------------------
         
-         //Carga Retiros
+//         //Carga Retiros
 //        RetirosCarga retiro = new RetirosCarga();
 //        try {
 //            retiro.carga();
@@ -105,9 +105,9 @@ public class CargaKdd {
 //        }
 //        
         
-                 //-------------------------------
+//                 //-------------------------------
         
-         //Carga Empresa
+//         //Carga Empresa
 //        EmpresaCarga empresa = new EmpresaCarga();
 //        try {
 //            empresa.carga();
@@ -117,16 +117,29 @@ public class CargaKdd {
 //            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
 //        }
         
-                    //-------------------------------
+//                    //-------------------------------
         
+//         //Carga Pago
+//        PagoCarga pago = new PagoCarga();
+//        try {
+//            pago.carga();
+//        } catch (PreexistingEntityException ex) {
+//            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (Exception ex) {
+//            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        
+                            //-------------------------------        
          //Carga Pago
-        PagoCarga pago = new PagoCarga();
+        DiagnosticoCarga diag = new DiagnosticoCarga();
         try {
-            pago.carga();
-        } catch (PreexistingEntityException ex) {
+            diag.carga();
+        } 
+        catch (PreexistingEntityException ex) {
             Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 }
