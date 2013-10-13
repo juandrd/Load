@@ -72,20 +72,5 @@ public class IPSCarga {
         }
     }
 
-//    public DepartamentoBodega consultarCodigoDepto(String nombre) {
-//        List lista;      
-//        String sql_select = "SELECT * FROM departamento_bodega d WHERE nombre='" + nombre + "'";
-//
-//      //  System.out.println(sql_select);
-//        
-//        lista = manager_bodega.createQuery(sql_select).getResultList();
-//        //else lista = manager.createQuery("SELECT b FROM Buses b ").getResultList();
-//
-////        for (int i = 0; i < lista.size(); i++) {
-//            DepartamentoBodega depto = (DepartamentoBodega) lista.get(0);
-//            
-////        }
-//
-//        return depto;
-//    }
+
 }

@@ -47,16 +47,25 @@ public class CargaKdd {
         
         //CARGA DE MEDICO        
              
-        MedicoCarga medico=new MedicoCarga();
+//        MedicoCarga medico=new MedicoCarga();
+//        try {
+//            medico.carga();
+//        } catch (PreexistingEntityException ex) {
+//            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (Exception ex) {
+//            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        
+        //-------------------------------
+        
+        //Carga Paciente y Demografia
+         PacienteYDemografiaCarga paciente=new PacienteYDemografiaCarga();
         try {
-            medico.carga();
+            paciente.carga();
         } catch (PreexistingEntityException ex) {
             Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        //-------------------------------
-        
     }
 }

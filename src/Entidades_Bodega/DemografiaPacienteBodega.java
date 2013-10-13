@@ -57,7 +57,7 @@ public class DemografiaPacienteBodega implements Serializable {
     @Column(name = "ips")
     private String ips;
     @Column(name = "tipo_cotizante")
-    private Integer tipoCotizante;
+    private String tipoCotizante;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "demografiaPacienteBodega")
     private List<CitasBodega> citasBodegaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "demografiaPacienteBodega")
@@ -144,11 +144,11 @@ public class DemografiaPacienteBodega implements Serializable {
         this.ips = ips;
     }
 
-    public Integer getTipoCotizante() {
+    public String getTipoCotizante() {
         return tipoCotizante;
     }
 
-    public void setTipoCotizante(Integer tipoCotizante) {
+    public void setTipoCotizante(String tipoCotizante) {
         this.tipoCotizante = tipoCotizante;
     }
 
