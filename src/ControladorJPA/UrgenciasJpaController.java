@@ -202,4 +202,13 @@ public class UrgenciasJpaController implements Serializable {
             }
         }
     }
+    
+    
+    public int calculoTiempoEspera(){
+        int dias=0;
+        
+        
+        
+        return dias;
+    }
 }

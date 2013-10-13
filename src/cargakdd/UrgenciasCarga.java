@@ -15,8 +15,12 @@ import ControladorJPABodega.PreexistenciaBodegaJpaController;
 import ControladorJPABodega.UrgenciasBodegaJpaController;
 import ControladorJPABodega.exceptions.PreexistingEntityException;
 import ControladorJPABodega.ServicioPosBodegaJpaController;
-import ControladorJPABodega.MedicamentoBodegaJpaController;
 import ControladorJPABodega.DiagnosticoBodegaJpaController;
+import ControladorJPABodega.IpsBodegaJpaController;
+import ControladorJPABodega.MedicoBodegaJpaController;
+import Entidades_Bodega.UrgenciasBodega;
+import Entidades_Bodega.UrgenciasBodegaPK;
+import Entidades_DB.Urgencias;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -48,33 +52,44 @@ public class UrgenciasCarga {
         DatesJpaController date = new DatesJpaController(fabrica_bodega.getFactory());
         EmpresaBodegaJpaController empresa = new EmpresaBodegaJpaController(fabrica_bodega.getFactory());
         PreexistenciaBodegaJpaController preexistencia = new PreexistenciaBodegaJpaController(fabrica_bodega.getFactory());
-//        ServicioP
-//        int contador = 0;
-//        lista = controladorBD.findPagosEntities();
-//        for (int i = 0; i < lista.size(); i++) {
-//
-//            Pagos pago = (Pagos) lista.get(i);
-//           // System.out.println("id transaccion " + pago.getIDTransaccion());
-//            //System.out.println(pago.getIDUsuario());
-//
-//            String buscar = pago.getIDUsuario().toString();
+        ServicioPosBodegaJpaController servicioPos=new ServicioPosBodegaJpaController(fabrica_bodega.getFactory());
+        DiagnosticoBodegaJpaController diagnostico=new DiagnosticoBodegaJpaController(fabrica_bodega.getFactory());
+        MedicoBodegaJpaController medico=new MedicoBodegaJpaController(fabrica_bodega.getFactory());
+        IpsBodegaJpaController ips=new IpsBodegaJpaController(fabrica_bodega.getFactory());
+        
+       
+        
+        int contador = 0;
+        lista = controladorBD.findUrgenciasEntities();
+        for (int i = 0; i < lista.size(); i++) {
+
+            Urgencias u = (Urgencias) lista.get(i);
+           // System.out.println("id transaccion " + pago.getIDTransaccion());
+            System.out.println(u.getCodigoUrgencia());
+            
+            
+            //-------------VOY ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA MARTESSS LLEGOOOO DE LA FINCAAA
+            //---------RECORDAR CALCULAR FECHA Y YA SALE 
+            
+//            
+//            String buscar = u.getIDUsuario().toString();
 //            String user = "";
 //            if (buscar.length() == 42) {
-//                user = pago.getIDUsuario().toString().substring(31, 40);
+//                user = u.getIDUsuario().toString().substring(31, 40);
 //
 //            }
 //            if (buscar.length() == 41) {
-//                user = pago.getIDUsuario().toString().substring(31, 39);
+//                user = u.getIDUsuario().toString().substring(31, 39);
 //
 //            }
 //
 //            if (buscar.length() == 40) {
-//                user = pago.getIDUsuario().toString().substring(31, 38);
+//                user = u.getIDUsuario().toString().substring(31, 38);
 //
 //            }
 //
 //            if (buscar.length() == 39) {
-//                user = pago.getIDUsuario().toString().substring(31, 37);
+//                user = u.getIDUsuario().toString().substring(31, 37);
 //
 //            }
 //
@@ -85,7 +100,7 @@ public class UrgenciasCarga {
 //            PacienteBodega p = paciente.consultarPorId(user);
 //            // System.out.println("llave " + p.getPacienteKey());
 //            DemografiaPacienteBodega demog = demografia.findDemografiaPacienteBodega(p.getPacienteKey());
-//            Dates f = date.consultar(pago.getFechaPago().toString());
+//            Dates f = date.consultar(u.getFechaPago().toString());
 //
 //            ConexionDB conexion = new ConexionDB();
 //            conexion.getConexion();
@@ -119,7 +134,7 @@ public class UrgenciasCarga {
 //            pagoNuevo.setPacienteBodega(p);
 //            pagoNuevo.setEmpresaBodega(emp);
 //            pagoNuevo.setPreexistenciaBodega(pre);
-//            pagoNuevo.setValorPagado(pago.getValorPagado());
+//            pagoNuevo.setValorPagado(u.getValorPagado());
 //            pagoNuevo.setPagosBodegaPK(pk);
 //            controladorPagoBodega.create(pagoNuevo);
 //            contador++;
