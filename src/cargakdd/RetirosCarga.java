@@ -80,8 +80,8 @@ public class RetirosCarga {
               if (buscar.length() == 39) {
                 user=retiro.getIDUsuario().toString().substring(31, 37);
                
-            }                           
-                           
+            }                        
+                          
               
             //Obtener codigo Depto
     
@@ -99,8 +99,6 @@ public class RetirosCarga {
             retiroNuevo.setDemografiaPacienteBodega(demog);
             retiroNuevo.setPacienteBodega(p);
             retiroNuevo.setRetirosBodegaPK(pk);
-
-
             controladorRetiroBodega.create(retiroNuevo);
 
         }
