@@ -14,7 +14,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import Entidades_Bodega.IpsBodega;
-import Entidades_Bodega.ServicioPosBodega;
 import Entidades_Bodega.PreexistenciaBodega;
 import Entidades_Bodega.DiagnosticoBodega;
 import Entidades_Bodega.Dates;
@@ -44,14 +43,14 @@ public class CitasBodegaJpaController implements Serializable {
         if (citasBodega.getCitasBodegaPK() == null) {
             citasBodega.setCitasBodegaPK(new CitasBodegaPK());
         }
-        citasBodega.getCitasBodegaPK().setServicioPosKey(citasBodega.getServicioPosBodega().getServicioPosKey());
-        citasBodega.getCitasBodegaPK().setMedicoKey(citasBodega.getMedicoBodega().getMedicoKey());
-        citasBodega.getCitasBodegaPK().setIpsKey(citasBodega.getIpsBodega().getIpsKey());
-        citasBodega.getCitasBodegaPK().setFechaKey(citasBodega.getDates().getDateId());
-        citasBodega.getCitasBodegaPK().setPreexistenciaKey(citasBodega.getPreexistenciaBodega().getPreexistenciaKey());
         citasBodega.getCitasBodegaPK().setDiagnosticoKey(citasBodega.getDiagnosticoBodega().getDiagnosticoKey());
         citasBodega.getCitasBodegaPK().setDemografiaPacienteKey(citasBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
+        citasBodega.getCitasBodegaPK().setServicioPosKey(citasBodega.getServicioPosBodega().getServicioPosKey());
+        citasBodega.getCitasBodegaPK().setFechaKey(citasBodega.getDates().getDateId());
         citasBodega.getCitasBodegaPK().setPacienteKey(citasBodega.getPacienteBodega().getPacienteKey());
+        citasBodega.getCitasBodegaPK().setMedicoKey(citasBodega.getMedicoBodega().getMedicoKey());
+        citasBodega.getCitasBodegaPK().setPreexistenciaKey(citasBodega.getPreexistenciaBodega().getPreexistenciaKey());
+        citasBodega.getCitasBodegaPK().setIpsKey(citasBodega.getIpsBodega().getIpsKey());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -60,11 +59,6 @@ public class CitasBodegaJpaController implements Serializable {
             if (ipsBodega != null) {
                 ipsBodega = em.getReference(ipsBodega.getClass(), ipsBodega.getIpsKey());
                 citasBodega.setIpsBodega(ipsBodega);
-            }
-            ServicioPosBodega servicioPosBodega = citasBodega.getServicioPosBodega();
-            if (servicioPosBodega != null) {
-                servicioPosBodega = em.getReference(servicioPosBodega.getClass(), servicioPosBodega.getServicioPosKey());
-                citasBodega.setServicioPosBodega(servicioPosBodega);
             }
             PreexistenciaBodega preexistenciaBodega = citasBodega.getPreexistenciaBodega();
             if (preexistenciaBodega != null) {
@@ -100,10 +94,6 @@ public class CitasBodegaJpaController implements Serializable {
             if (ipsBodega != null) {
                 ipsBodega.getCitasBodegaList().add(citasBodega);
                 ipsBodega = em.merge(ipsBodega);
-            }
-            if (servicioPosBodega != null) {
-                servicioPosBodega.getCitasBodegaList().add(citasBodega);
-                servicioPosBodega = em.merge(servicioPosBodega);
             }
             if (preexistenciaBodega != null) {
                 preexistenciaBodega.getCitasBodegaList().add(citasBodega);
@@ -143,14 +133,14 @@ public class CitasBodegaJpaController implements Serializable {
     }
 
     public void edit(CitasBodega citasBodega) throws NonexistentEntityException, Exception {
-        citasBodega.getCitasBodegaPK().setServicioPosKey(citasBodega.getServicioPosBodega().getServicioPosKey());
-        citasBodega.getCitasBodegaPK().setMedicoKey(citasBodega.getMedicoBodega().getMedicoKey());
-        citasBodega.getCitasBodegaPK().setIpsKey(citasBodega.getIpsBodega().getIpsKey());
-        citasBodega.getCitasBodegaPK().setFechaKey(citasBodega.getDates().getDateId());
-        citasBodega.getCitasBodegaPK().setPreexistenciaKey(citasBodega.getPreexistenciaBodega().getPreexistenciaKey());
         citasBodega.getCitasBodegaPK().setDiagnosticoKey(citasBodega.getDiagnosticoBodega().getDiagnosticoKey());
         citasBodega.getCitasBodegaPK().setDemografiaPacienteKey(citasBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
+        citasBodega.getCitasBodegaPK().setServicioPosKey(citasBodega.getServicioPosBodega().getServicioPosKey());
+        citasBodega.getCitasBodegaPK().setFechaKey(citasBodega.getDates().getDateId());
         citasBodega.getCitasBodegaPK().setPacienteKey(citasBodega.getPacienteBodega().getPacienteKey());
+        citasBodega.getCitasBodegaPK().setMedicoKey(citasBodega.getMedicoBodega().getMedicoKey());
+        citasBodega.getCitasBodegaPK().setPreexistenciaKey(citasBodega.getPreexistenciaBodega().getPreexistenciaKey());
+        citasBodega.getCitasBodegaPK().setIpsKey(citasBodega.getIpsBodega().getIpsKey());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -158,8 +148,6 @@ public class CitasBodegaJpaController implements Serializable {
             CitasBodega persistentCitasBodega = em.find(CitasBodega.class, citasBodega.getCitasBodegaPK());
             IpsBodega ipsBodegaOld = persistentCitasBodega.getIpsBodega();
             IpsBodega ipsBodegaNew = citasBodega.getIpsBodega();
-            ServicioPosBodega servicioPosBodegaOld = persistentCitasBodega.getServicioPosBodega();
-            ServicioPosBodega servicioPosBodegaNew = citasBodega.getServicioPosBodega();
             PreexistenciaBodega preexistenciaBodegaOld = persistentCitasBodega.getPreexistenciaBodega();
             PreexistenciaBodega preexistenciaBodegaNew = citasBodega.getPreexistenciaBodega();
             DiagnosticoBodega diagnosticoBodegaOld = persistentCitasBodega.getDiagnosticoBodega();
@@ -175,10 +163,6 @@ public class CitasBodegaJpaController implements Serializable {
             if (ipsBodegaNew != null) {
                 ipsBodegaNew = em.getReference(ipsBodegaNew.getClass(), ipsBodegaNew.getIpsKey());
                 citasBodega.setIpsBodega(ipsBodegaNew);
-            }
-            if (servicioPosBodegaNew != null) {
-                servicioPosBodegaNew = em.getReference(servicioPosBodegaNew.getClass(), servicioPosBodegaNew.getServicioPosKey());
-                citasBodega.setServicioPosBodega(servicioPosBodegaNew);
             }
             if (preexistenciaBodegaNew != null) {
                 preexistenciaBodegaNew = em.getReference(preexistenciaBodegaNew.getClass(), preexistenciaBodegaNew.getPreexistenciaKey());
@@ -212,14 +196,6 @@ public class CitasBodegaJpaController implements Serializable {
             if (ipsBodegaNew != null && !ipsBodegaNew.equals(ipsBodegaOld)) {
                 ipsBodegaNew.getCitasBodegaList().add(citasBodega);
                 ipsBodegaNew = em.merge(ipsBodegaNew);
-            }
-            if (servicioPosBodegaOld != null && !servicioPosBodegaOld.equals(servicioPosBodegaNew)) {
-                servicioPosBodegaOld.getCitasBodegaList().remove(citasBodega);
-                servicioPosBodegaOld = em.merge(servicioPosBodegaOld);
-            }
-            if (servicioPosBodegaNew != null && !servicioPosBodegaNew.equals(servicioPosBodegaOld)) {
-                servicioPosBodegaNew.getCitasBodegaList().add(citasBodega);
-                servicioPosBodegaNew = em.merge(servicioPosBodegaNew);
             }
             if (preexistenciaBodegaOld != null && !preexistenciaBodegaOld.equals(preexistenciaBodegaNew)) {
                 preexistenciaBodegaOld.getCitasBodegaList().remove(citasBodega);
@@ -302,11 +278,6 @@ public class CitasBodegaJpaController implements Serializable {
             if (ipsBodega != null) {
                 ipsBodega.getCitasBodegaList().remove(citasBodega);
                 ipsBodega = em.merge(ipsBodega);
-            }
-            ServicioPosBodega servicioPosBodega = citasBodega.getServicioPosBodega();
-            if (servicioPosBodega != null) {
-                servicioPosBodega.getCitasBodegaList().remove(citasBodega);
-                servicioPosBodega = em.merge(servicioPosBodega);
             }
             PreexistenciaBodega preexistenciaBodega = citasBodega.getPreexistenciaBodega();
             if (preexistenciaBodega != null) {

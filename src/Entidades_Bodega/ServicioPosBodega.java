@@ -5,18 +5,14 @@
 package Entidades_Bodega;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -43,12 +39,6 @@ public class ServicioPosBodega implements Serializable {
     private String descripcion;
     @Column(name = "costo")
     private Integer costo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "servicioPosBodega")
-    private List<CitasBodega> citasBodegaList;
-    @OneToMany(mappedBy = "servicioPosKey")
-    private List<UrgenciasBodega> urgenciasBodegaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "servicioPosBodega")
-    private List<RemisionesBodega> remisionesBodegaList;
 
     public ServicioPosBodega() {
     }
@@ -87,33 +77,6 @@ public class ServicioPosBodega implements Serializable {
 
     public void setCosto(Integer costo) {
         this.costo = costo;
-    }
-
-    @XmlTransient
-    public List<CitasBodega> getCitasBodegaList() {
-        return citasBodegaList;
-    }
-
-    public void setCitasBodegaList(List<CitasBodega> citasBodegaList) {
-        this.citasBodegaList = citasBodegaList;
-    }
-
-    @XmlTransient
-    public List<UrgenciasBodega> getUrgenciasBodegaList() {
-        return urgenciasBodegaList;
-    }
-
-    public void setUrgenciasBodegaList(List<UrgenciasBodega> urgenciasBodegaList) {
-        this.urgenciasBodegaList = urgenciasBodegaList;
-    }
-
-    @XmlTransient
-    public List<RemisionesBodega> getRemisionesBodegaList() {
-        return remisionesBodegaList;
-    }
-
-    public void setRemisionesBodegaList(List<RemisionesBodega> remisionesBodegaList) {
-        this.remisionesBodegaList = remisionesBodegaList;
     }
 
     @Override

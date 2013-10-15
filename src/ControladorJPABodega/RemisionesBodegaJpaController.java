@@ -12,7 +12,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import Entidades_Bodega.IpsBodega;
-import Entidades_Bodega.ServicioPosBodega;
 import Entidades_Bodega.PreexistenciaBodega;
 import Entidades_Bodega.DiagnosticoBodega;
 import Entidades_Bodega.Dates;
@@ -44,14 +43,14 @@ public class RemisionesBodegaJpaController implements Serializable {
         if (remisionesBodega.getRemisionesBodegaPK() == null) {
             remisionesBodega.setRemisionesBodegaPK(new RemisionesBodegaPK());
         }
-        remisionesBodega.getRemisionesBodegaPK().setServicioPosKey(remisionesBodega.getServicioPosBodega().getServicioPosKey());
-        remisionesBodega.getRemisionesBodegaPK().setMedicoKey(remisionesBodega.getMedicoBodega().getMedicoKey());
         remisionesBodega.getRemisionesBodegaPK().setPreexistenciaKey(remisionesBodega.getPreexistenciaBodega().getPreexistenciaKey());
-        remisionesBodega.getRemisionesBodegaPK().setDiagnosticoKey(remisionesBodega.getDiagnosticoBodega().getDiagnosticoKey());
-        remisionesBodega.getRemisionesBodegaPK().setIpsKey(remisionesBodega.getIpsBodega().getIpsKey());
-        remisionesBodega.getRemisionesBodegaPK().setDemografiaPacienteKey(remisionesBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
         remisionesBodega.getRemisionesBodegaPK().setFechaKey(remisionesBodega.getDates().getDateId());
+        remisionesBodega.getRemisionesBodegaPK().setIpsKey(remisionesBodega.getIpsBodega().getIpsKey());
+        remisionesBodega.getRemisionesBodegaPK().setServicioPosKey(remisionesBodega.getServicioPosBodega().getServicioPosKey());
+        remisionesBodega.getRemisionesBodegaPK().setDiagnosticoKey(remisionesBodega.getDiagnosticoBodega().getDiagnosticoKey());
+        remisionesBodega.getRemisionesBodegaPK().setDemografiaPacienteKey(remisionesBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
         remisionesBodega.getRemisionesBodegaPK().setPacienteKey(remisionesBodega.getPacienteBodega().getPacienteKey());
+        remisionesBodega.getRemisionesBodegaPK().setMedicoKey(remisionesBodega.getMedicoBodega().getMedicoKey());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -60,11 +59,6 @@ public class RemisionesBodegaJpaController implements Serializable {
             if (ipsBodega != null) {
                 ipsBodega = em.getReference(ipsBodega.getClass(), ipsBodega.getIpsKey());
                 remisionesBodega.setIpsBodega(ipsBodega);
-            }
-            ServicioPosBodega servicioPosBodega = remisionesBodega.getServicioPosBodega();
-            if (servicioPosBodega != null) {
-                servicioPosBodega = em.getReference(servicioPosBodega.getClass(), servicioPosBodega.getServicioPosKey());
-                remisionesBodega.setServicioPosBodega(servicioPosBodega);
             }
             PreexistenciaBodega preexistenciaBodega = remisionesBodega.getPreexistenciaBodega();
             if (preexistenciaBodega != null) {
@@ -100,10 +94,6 @@ public class RemisionesBodegaJpaController implements Serializable {
             if (ipsBodega != null) {
                 ipsBodega.getRemisionesBodegaList().add(remisionesBodega);
                 ipsBodega = em.merge(ipsBodega);
-            }
-            if (servicioPosBodega != null) {
-                servicioPosBodega.getRemisionesBodegaList().add(remisionesBodega);
-                servicioPosBodega = em.merge(servicioPosBodega);
             }
             if (preexistenciaBodega != null) {
                 preexistenciaBodega.getRemisionesBodegaList().add(remisionesBodega);
@@ -143,14 +133,14 @@ public class RemisionesBodegaJpaController implements Serializable {
     }
 
     public void edit(RemisionesBodega remisionesBodega) throws NonexistentEntityException, Exception {
-        remisionesBodega.getRemisionesBodegaPK().setServicioPosKey(remisionesBodega.getServicioPosBodega().getServicioPosKey());
-        remisionesBodega.getRemisionesBodegaPK().setMedicoKey(remisionesBodega.getMedicoBodega().getMedicoKey());
         remisionesBodega.getRemisionesBodegaPK().setPreexistenciaKey(remisionesBodega.getPreexistenciaBodega().getPreexistenciaKey());
-        remisionesBodega.getRemisionesBodegaPK().setDiagnosticoKey(remisionesBodega.getDiagnosticoBodega().getDiagnosticoKey());
-        remisionesBodega.getRemisionesBodegaPK().setIpsKey(remisionesBodega.getIpsBodega().getIpsKey());
-        remisionesBodega.getRemisionesBodegaPK().setDemografiaPacienteKey(remisionesBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
         remisionesBodega.getRemisionesBodegaPK().setFechaKey(remisionesBodega.getDates().getDateId());
+        remisionesBodega.getRemisionesBodegaPK().setIpsKey(remisionesBodega.getIpsBodega().getIpsKey());
+        remisionesBodega.getRemisionesBodegaPK().setServicioPosKey(remisionesBodega.getServicioPosBodega().getServicioPosKey());
+        remisionesBodega.getRemisionesBodegaPK().setDiagnosticoKey(remisionesBodega.getDiagnosticoBodega().getDiagnosticoKey());
+        remisionesBodega.getRemisionesBodegaPK().setDemografiaPacienteKey(remisionesBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
         remisionesBodega.getRemisionesBodegaPK().setPacienteKey(remisionesBodega.getPacienteBodega().getPacienteKey());
+        remisionesBodega.getRemisionesBodegaPK().setMedicoKey(remisionesBodega.getMedicoBodega().getMedicoKey());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -158,8 +148,6 @@ public class RemisionesBodegaJpaController implements Serializable {
             RemisionesBodega persistentRemisionesBodega = em.find(RemisionesBodega.class, remisionesBodega.getRemisionesBodegaPK());
             IpsBodega ipsBodegaOld = persistentRemisionesBodega.getIpsBodega();
             IpsBodega ipsBodegaNew = remisionesBodega.getIpsBodega();
-            ServicioPosBodega servicioPosBodegaOld = persistentRemisionesBodega.getServicioPosBodega();
-            ServicioPosBodega servicioPosBodegaNew = remisionesBodega.getServicioPosBodega();
             PreexistenciaBodega preexistenciaBodegaOld = persistentRemisionesBodega.getPreexistenciaBodega();
             PreexistenciaBodega preexistenciaBodegaNew = remisionesBodega.getPreexistenciaBodega();
             DiagnosticoBodega diagnosticoBodegaOld = persistentRemisionesBodega.getDiagnosticoBodega();
@@ -175,10 +163,6 @@ public class RemisionesBodegaJpaController implements Serializable {
             if (ipsBodegaNew != null) {
                 ipsBodegaNew = em.getReference(ipsBodegaNew.getClass(), ipsBodegaNew.getIpsKey());
                 remisionesBodega.setIpsBodega(ipsBodegaNew);
-            }
-            if (servicioPosBodegaNew != null) {
-                servicioPosBodegaNew = em.getReference(servicioPosBodegaNew.getClass(), servicioPosBodegaNew.getServicioPosKey());
-                remisionesBodega.setServicioPosBodega(servicioPosBodegaNew);
             }
             if (preexistenciaBodegaNew != null) {
                 preexistenciaBodegaNew = em.getReference(preexistenciaBodegaNew.getClass(), preexistenciaBodegaNew.getPreexistenciaKey());
@@ -212,14 +196,6 @@ public class RemisionesBodegaJpaController implements Serializable {
             if (ipsBodegaNew != null && !ipsBodegaNew.equals(ipsBodegaOld)) {
                 ipsBodegaNew.getRemisionesBodegaList().add(remisionesBodega);
                 ipsBodegaNew = em.merge(ipsBodegaNew);
-            }
-            if (servicioPosBodegaOld != null && !servicioPosBodegaOld.equals(servicioPosBodegaNew)) {
-                servicioPosBodegaOld.getRemisionesBodegaList().remove(remisionesBodega);
-                servicioPosBodegaOld = em.merge(servicioPosBodegaOld);
-            }
-            if (servicioPosBodegaNew != null && !servicioPosBodegaNew.equals(servicioPosBodegaOld)) {
-                servicioPosBodegaNew.getRemisionesBodegaList().add(remisionesBodega);
-                servicioPosBodegaNew = em.merge(servicioPosBodegaNew);
             }
             if (preexistenciaBodegaOld != null && !preexistenciaBodegaOld.equals(preexistenciaBodegaNew)) {
                 preexistenciaBodegaOld.getRemisionesBodegaList().remove(remisionesBodega);
@@ -302,11 +278,6 @@ public class RemisionesBodegaJpaController implements Serializable {
             if (ipsBodega != null) {
                 ipsBodega.getRemisionesBodegaList().remove(remisionesBodega);
                 ipsBodega = em.merge(ipsBodega);
-            }
-            ServicioPosBodega servicioPosBodega = remisionesBodega.getServicioPosBodega();
-            if (servicioPosBodega != null) {
-                servicioPosBodega.getRemisionesBodegaList().remove(remisionesBodega);
-                servicioPosBodega = em.merge(servicioPosBodega);
             }
             PreexistenciaBodega preexistenciaBodega = remisionesBodega.getPreexistenciaBodega();
             if (preexistenciaBodega != null) {

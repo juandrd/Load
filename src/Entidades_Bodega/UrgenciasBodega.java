@@ -5,7 +5,6 @@
 package Entidades_Bodega;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -14,8 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -29,7 +26,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "UrgenciasBodega.findAll", query = "SELECT u FROM UrgenciasBodega u"),
     @NamedQuery(name = "UrgenciasBodega.findByPacienteKey", query = "SELECT u FROM UrgenciasBodega u WHERE u.urgenciasBodegaPK.pacienteKey = :pacienteKey"),
     @NamedQuery(name = "UrgenciasBodega.findByDemografiaPacienteKey", query = "SELECT u FROM UrgenciasBodega u WHERE u.urgenciasBodegaPK.demografiaPacienteKey = :demografiaPacienteKey"),
-    @NamedQuery(name = "UrgenciasBodega.findByFechaKey", query = "SELECT u FROM UrgenciasBodega u WHERE u.urgenciasBodegaPK.fechaKey = :fechaKey"),
+    @NamedQuery(name = "UrgenciasBodega.findByFechaSolicitudKey", query = "SELECT u FROM UrgenciasBodega u WHERE u.urgenciasBodegaPK.fechaSolicitudKey = :fechaSolicitudKey"),
+    @NamedQuery(name = "UrgenciasBodega.findByFechaAtencionKey", query = "SELECT u FROM UrgenciasBodega u WHERE u.urgenciasBodegaPK.fechaAtencionKey = :fechaAtencionKey"),
     @NamedQuery(name = "UrgenciasBodega.findByEmpresaKey", query = "SELECT u FROM UrgenciasBodega u WHERE u.urgenciasBodegaPK.empresaKey = :empresaKey"),
     @NamedQuery(name = "UrgenciasBodega.findByMedicoId", query = "SELECT u FROM UrgenciasBodega u WHERE u.medicoId = :medicoId"),
     @NamedQuery(name = "UrgenciasBodega.findByPreexistenciaKey", query = "SELECT u FROM UrgenciasBodega u WHERE u.urgenciasBodegaPK.preexistenciaKey = :preexistenciaKey"),
@@ -41,8 +39,7 @@ public class UrgenciasBodega implements Serializable {
     @Column(name = "medico_id")
     private Integer medicoId;
     @Column(name = "tiempo_espera_atencion")
-    @Temporal(TemporalType.TIME)
-    private Date tiempoEsperaAtencion;
+    private Integer tiempoEsperaAtencion;
     @JoinColumn(name = "preexistencia_key", referencedColumnName = "preexistencia_key", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private PreexistenciaBodega preexistenciaBodega;
@@ -52,15 +49,15 @@ public class UrgenciasBodega implements Serializable {
     @JoinColumn(name = "diagnostico_key", referencedColumnName = "diagnostico_key")
     @ManyToOne
     private DiagnosticoBodega diagnosticoKey;
-    @JoinColumn(name = "servicio_pos_key", referencedColumnName = "servicio_pos_key")
-    @ManyToOne
-    private ServicioPosBodega servicioPosKey;
     @JoinColumn(name = "empresa_key", referencedColumnName = "empresa_key", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private EmpresaBodega empresaBodega;
-    @JoinColumn(name = "fecha_key", referencedColumnName = "date_id", insertable = false, updatable = false)
+    @JoinColumn(name = "fecha_atencion_key", referencedColumnName = "date_id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Dates dates;
+    @JoinColumn(name = "fecha_solicitud_key", referencedColumnName = "date_id", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Dates dates1;
     @JoinColumn(name = "demografia_paciente_key", referencedColumnName = "demografia_paciente_key", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private DemografiaPacienteBodega demografiaPacienteBodega;
@@ -75,8 +72,8 @@ public class UrgenciasBodega implements Serializable {
         this.urgenciasBodegaPK = urgenciasBodegaPK;
     }
 
-    public UrgenciasBodega(int pacienteKey, int demografiaPacienteKey, long fechaKey, int empresaKey, int preexistenciaKey) {
-        this.urgenciasBodegaPK = new UrgenciasBodegaPK(pacienteKey, demografiaPacienteKey, fechaKey, empresaKey, preexistenciaKey);
+    public UrgenciasBodega(int pacienteKey, int demografiaPacienteKey, long fechaSolicitudKey, long fechaAtencionKey, int empresaKey, int preexistenciaKey) {
+        this.urgenciasBodegaPK = new UrgenciasBodegaPK(pacienteKey, demografiaPacienteKey, fechaSolicitudKey, fechaAtencionKey, empresaKey, preexistenciaKey);
     }
 
     public UrgenciasBodegaPK getUrgenciasBodegaPK() {
@@ -95,11 +92,11 @@ public class UrgenciasBodega implements Serializable {
         this.medicoId = medicoId;
     }
 
-    public Date getTiempoEsperaAtencion() {
+    public Integer getTiempoEsperaAtencion() {
         return tiempoEsperaAtencion;
     }
 
-    public void setTiempoEsperaAtencion(Date tiempoEsperaAtencion) {
+    public void setTiempoEsperaAtencion(Integer tiempoEsperaAtencion) {
         this.tiempoEsperaAtencion = tiempoEsperaAtencion;
     }
 
@@ -127,14 +124,6 @@ public class UrgenciasBodega implements Serializable {
         this.diagnosticoKey = diagnosticoKey;
     }
 
-    public ServicioPosBodega getServicioPosKey() {
-        return servicioPosKey;
-    }
-
-    public void setServicioPosKey(ServicioPosBodega servicioPosKey) {
-        this.servicioPosKey = servicioPosKey;
-    }
-
     public EmpresaBodega getEmpresaBodega() {
         return empresaBodega;
     }
@@ -149,6 +138,14 @@ public class UrgenciasBodega implements Serializable {
 
     public void setDates(Dates dates) {
         this.dates = dates;
+    }
+
+    public Dates getDates1() {
+        return dates1;
+    }
+
+    public void setDates1(Dates dates1) {
+        this.dates1 = dates1;
     }
 
     public DemografiaPacienteBodega getDemografiaPacienteBodega() {

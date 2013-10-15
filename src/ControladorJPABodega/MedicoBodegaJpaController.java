@@ -312,5 +312,23 @@ public class MedicoBodegaJpaController implements Serializable {
             em.close();
         }
     }
-    
+      public MedicoBodega consultar(String f) {          
+          
+         MedicoBodega m=new MedicoBodega();
+         List lista;
+         lista=findMedicoBodegaEntities();
+         
+          for (int i = 0; i < lista.size(); i++) {
+              MedicoBodega medico=(MedicoBodega) lista.get(i);             
+              
+             
+              if(medico.getIdMedico().toString().equalsIgnoreCase(f)){                  
+                  m=medico;
+                 // System.out.println(m);
+                  break;
+              }
+          }
+
+        return m;
+    }
 }

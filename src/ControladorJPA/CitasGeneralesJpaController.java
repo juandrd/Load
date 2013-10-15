@@ -185,14 +185,14 @@ public class CitasGeneralesJpaController implements Serializable {
         int contador = 0;
 
         contador = controladorDiag.getDiagnosticoBodegaCount();
-        System.err.println(contador);
+        System.err.println("Cita"+contador);
         for (int i = 0; i < lista.size(); i++) {
 
             CitasGenerales cita = (CitasGenerales) lista.get(i);
             DiagnosticoBodega diag = new DiagnosticoBodega();
 
             if (controladorDiag.consultarPorNombre(cita.getDiagnostico().toString())) {
-                
+            //    System.err.println(contador + 1 + " " + cita.getDiagnostico().toString());
             } else {
                 diag.setDiagnosticoKey(contador + 1);
                 System.out.println(contador + 1 + " " + cita.getDiagnostico().toString());

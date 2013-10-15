@@ -14,7 +14,6 @@ import javax.persistence.criteria.Root;
 import Entidades_Bodega.PreexistenciaBodega;
 import Entidades_Bodega.IpsBodega;
 import Entidades_Bodega.DiagnosticoBodega;
-import Entidades_Bodega.ServicioPosBodega;
 import Entidades_Bodega.EmpresaBodega;
 import Entidades_Bodega.Dates;
 import Entidades_Bodega.DemografiaPacienteBodega;
@@ -44,11 +43,12 @@ public class UrgenciasBodegaJpaController implements Serializable {
         if (urgenciasBodega.getUrgenciasBodegaPK() == null) {
             urgenciasBodega.setUrgenciasBodegaPK(new UrgenciasBodegaPK());
         }
-        urgenciasBodega.getUrgenciasBodegaPK().setDemografiaPacienteKey(urgenciasBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
-        urgenciasBodega.getUrgenciasBodegaPK().setPacienteKey(urgenciasBodega.getPacienteBodega().getPacienteKey());
         urgenciasBodega.getUrgenciasBodegaPK().setEmpresaKey(urgenciasBodega.getEmpresaBodega().getEmpresaKey());
+        urgenciasBodega.getUrgenciasBodegaPK().setFechaAtencionKey(urgenciasBodega.getDates().getDateId());
+        urgenciasBodega.getUrgenciasBodegaPK().setDemografiaPacienteKey(urgenciasBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
+        urgenciasBodega.getUrgenciasBodegaPK().setFechaSolicitudKey(urgenciasBodega.getDates1().getDateId());
         urgenciasBodega.getUrgenciasBodegaPK().setPreexistenciaKey(urgenciasBodega.getPreexistenciaBodega().getPreexistenciaKey());
-        urgenciasBodega.getUrgenciasBodegaPK().setFechaKey(urgenciasBodega.getDates().getDateId());
+        urgenciasBodega.getUrgenciasBodegaPK().setPacienteKey(urgenciasBodega.getPacienteBodega().getPacienteKey());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -68,11 +68,6 @@ public class UrgenciasBodegaJpaController implements Serializable {
                 diagnosticoKey = em.getReference(diagnosticoKey.getClass(), diagnosticoKey.getDiagnosticoKey());
                 urgenciasBodega.setDiagnosticoKey(diagnosticoKey);
             }
-            ServicioPosBodega servicioPosKey = urgenciasBodega.getServicioPosKey();
-            if (servicioPosKey != null) {
-                servicioPosKey = em.getReference(servicioPosKey.getClass(), servicioPosKey.getServicioPosKey());
-                urgenciasBodega.setServicioPosKey(servicioPosKey);
-            }
             EmpresaBodega empresaBodega = urgenciasBodega.getEmpresaBodega();
             if (empresaBodega != null) {
                 empresaBodega = em.getReference(empresaBodega.getClass(), empresaBodega.getEmpresaKey());
@@ -82,6 +77,11 @@ public class UrgenciasBodegaJpaController implements Serializable {
             if (dates != null) {
                 dates = em.getReference(dates.getClass(), dates.getDateId());
                 urgenciasBodega.setDates(dates);
+            }
+            Dates dates1 = urgenciasBodega.getDates1();
+            if (dates1 != null) {
+                dates1 = em.getReference(dates1.getClass(), dates1.getDateId());
+                urgenciasBodega.setDates1(dates1);
             }
             DemografiaPacienteBodega demografiaPacienteBodega = urgenciasBodega.getDemografiaPacienteBodega();
             if (demografiaPacienteBodega != null) {
@@ -106,10 +106,6 @@ public class UrgenciasBodegaJpaController implements Serializable {
                 diagnosticoKey.getUrgenciasBodegaList().add(urgenciasBodega);
                 diagnosticoKey = em.merge(diagnosticoKey);
             }
-            if (servicioPosKey != null) {
-                servicioPosKey.getUrgenciasBodegaList().add(urgenciasBodega);
-                servicioPosKey = em.merge(servicioPosKey);
-            }
             if (empresaBodega != null) {
                 empresaBodega.getUrgenciasBodegaList().add(urgenciasBodega);
                 empresaBodega = em.merge(empresaBodega);
@@ -117,6 +113,10 @@ public class UrgenciasBodegaJpaController implements Serializable {
             if (dates != null) {
                 dates.getUrgenciasBodegaList().add(urgenciasBodega);
                 dates = em.merge(dates);
+            }
+            if (dates1 != null) {
+                dates1.getUrgenciasBodegaList().add(urgenciasBodega);
+                dates1 = em.merge(dates1);
             }
             if (demografiaPacienteBodega != null) {
                 demografiaPacienteBodega.getUrgenciasBodegaList().add(urgenciasBodega);
@@ -140,11 +140,12 @@ public class UrgenciasBodegaJpaController implements Serializable {
     }
 
     public void edit(UrgenciasBodega urgenciasBodega) throws NonexistentEntityException, Exception {
-        urgenciasBodega.getUrgenciasBodegaPK().setDemografiaPacienteKey(urgenciasBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
-        urgenciasBodega.getUrgenciasBodegaPK().setPacienteKey(urgenciasBodega.getPacienteBodega().getPacienteKey());
         urgenciasBodega.getUrgenciasBodegaPK().setEmpresaKey(urgenciasBodega.getEmpresaBodega().getEmpresaKey());
+        urgenciasBodega.getUrgenciasBodegaPK().setFechaAtencionKey(urgenciasBodega.getDates().getDateId());
+        urgenciasBodega.getUrgenciasBodegaPK().setDemografiaPacienteKey(urgenciasBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
+        urgenciasBodega.getUrgenciasBodegaPK().setFechaSolicitudKey(urgenciasBodega.getDates1().getDateId());
         urgenciasBodega.getUrgenciasBodegaPK().setPreexistenciaKey(urgenciasBodega.getPreexistenciaBodega().getPreexistenciaKey());
-        urgenciasBodega.getUrgenciasBodegaPK().setFechaKey(urgenciasBodega.getDates().getDateId());
+        urgenciasBodega.getUrgenciasBodegaPK().setPacienteKey(urgenciasBodega.getPacienteBodega().getPacienteKey());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -156,12 +157,12 @@ public class UrgenciasBodegaJpaController implements Serializable {
             IpsBodega ipsKeyNew = urgenciasBodega.getIpsKey();
             DiagnosticoBodega diagnosticoKeyOld = persistentUrgenciasBodega.getDiagnosticoKey();
             DiagnosticoBodega diagnosticoKeyNew = urgenciasBodega.getDiagnosticoKey();
-            ServicioPosBodega servicioPosKeyOld = persistentUrgenciasBodega.getServicioPosKey();
-            ServicioPosBodega servicioPosKeyNew = urgenciasBodega.getServicioPosKey();
             EmpresaBodega empresaBodegaOld = persistentUrgenciasBodega.getEmpresaBodega();
             EmpresaBodega empresaBodegaNew = urgenciasBodega.getEmpresaBodega();
             Dates datesOld = persistentUrgenciasBodega.getDates();
             Dates datesNew = urgenciasBodega.getDates();
+            Dates dates1Old = persistentUrgenciasBodega.getDates1();
+            Dates dates1New = urgenciasBodega.getDates1();
             DemografiaPacienteBodega demografiaPacienteBodegaOld = persistentUrgenciasBodega.getDemografiaPacienteBodega();
             DemografiaPacienteBodega demografiaPacienteBodegaNew = urgenciasBodega.getDemografiaPacienteBodega();
             PacienteBodega pacienteBodegaOld = persistentUrgenciasBodega.getPacienteBodega();
@@ -178,10 +179,6 @@ public class UrgenciasBodegaJpaController implements Serializable {
                 diagnosticoKeyNew = em.getReference(diagnosticoKeyNew.getClass(), diagnosticoKeyNew.getDiagnosticoKey());
                 urgenciasBodega.setDiagnosticoKey(diagnosticoKeyNew);
             }
-            if (servicioPosKeyNew != null) {
-                servicioPosKeyNew = em.getReference(servicioPosKeyNew.getClass(), servicioPosKeyNew.getServicioPosKey());
-                urgenciasBodega.setServicioPosKey(servicioPosKeyNew);
-            }
             if (empresaBodegaNew != null) {
                 empresaBodegaNew = em.getReference(empresaBodegaNew.getClass(), empresaBodegaNew.getEmpresaKey());
                 urgenciasBodega.setEmpresaBodega(empresaBodegaNew);
@@ -189,6 +186,10 @@ public class UrgenciasBodegaJpaController implements Serializable {
             if (datesNew != null) {
                 datesNew = em.getReference(datesNew.getClass(), datesNew.getDateId());
                 urgenciasBodega.setDates(datesNew);
+            }
+            if (dates1New != null) {
+                dates1New = em.getReference(dates1New.getClass(), dates1New.getDateId());
+                urgenciasBodega.setDates1(dates1New);
             }
             if (demografiaPacienteBodegaNew != null) {
                 demografiaPacienteBodegaNew = em.getReference(demografiaPacienteBodegaNew.getClass(), demografiaPacienteBodegaNew.getDemografiaPacienteKey());
@@ -223,14 +224,6 @@ public class UrgenciasBodegaJpaController implements Serializable {
                 diagnosticoKeyNew.getUrgenciasBodegaList().add(urgenciasBodega);
                 diagnosticoKeyNew = em.merge(diagnosticoKeyNew);
             }
-            if (servicioPosKeyOld != null && !servicioPosKeyOld.equals(servicioPosKeyNew)) {
-                servicioPosKeyOld.getUrgenciasBodegaList().remove(urgenciasBodega);
-                servicioPosKeyOld = em.merge(servicioPosKeyOld);
-            }
-            if (servicioPosKeyNew != null && !servicioPosKeyNew.equals(servicioPosKeyOld)) {
-                servicioPosKeyNew.getUrgenciasBodegaList().add(urgenciasBodega);
-                servicioPosKeyNew = em.merge(servicioPosKeyNew);
-            }
             if (empresaBodegaOld != null && !empresaBodegaOld.equals(empresaBodegaNew)) {
                 empresaBodegaOld.getUrgenciasBodegaList().remove(urgenciasBodega);
                 empresaBodegaOld = em.merge(empresaBodegaOld);
@@ -246,6 +239,14 @@ public class UrgenciasBodegaJpaController implements Serializable {
             if (datesNew != null && !datesNew.equals(datesOld)) {
                 datesNew.getUrgenciasBodegaList().add(urgenciasBodega);
                 datesNew = em.merge(datesNew);
+            }
+            if (dates1Old != null && !dates1Old.equals(dates1New)) {
+                dates1Old.getUrgenciasBodegaList().remove(urgenciasBodega);
+                dates1Old = em.merge(dates1Old);
+            }
+            if (dates1New != null && !dates1New.equals(dates1Old)) {
+                dates1New.getUrgenciasBodegaList().add(urgenciasBodega);
+                dates1New = em.merge(dates1New);
             }
             if (demografiaPacienteBodegaOld != null && !demografiaPacienteBodegaOld.equals(demografiaPacienteBodegaNew)) {
                 demografiaPacienteBodegaOld.getUrgenciasBodegaList().remove(urgenciasBodega);
@@ -307,11 +308,6 @@ public class UrgenciasBodegaJpaController implements Serializable {
                 diagnosticoKey.getUrgenciasBodegaList().remove(urgenciasBodega);
                 diagnosticoKey = em.merge(diagnosticoKey);
             }
-            ServicioPosBodega servicioPosKey = urgenciasBodega.getServicioPosKey();
-            if (servicioPosKey != null) {
-                servicioPosKey.getUrgenciasBodegaList().remove(urgenciasBodega);
-                servicioPosKey = em.merge(servicioPosKey);
-            }
             EmpresaBodega empresaBodega = urgenciasBodega.getEmpresaBodega();
             if (empresaBodega != null) {
                 empresaBodega.getUrgenciasBodegaList().remove(urgenciasBodega);
@@ -321,6 +317,11 @@ public class UrgenciasBodegaJpaController implements Serializable {
             if (dates != null) {
                 dates.getUrgenciasBodegaList().remove(urgenciasBodega);
                 dates = em.merge(dates);
+            }
+            Dates dates1 = urgenciasBodega.getDates1();
+            if (dates1 != null) {
+                dates1.getUrgenciasBodegaList().remove(urgenciasBodega);
+                dates1 = em.merge(dates1);
             }
             DemografiaPacienteBodega demografiaPacienteBodega = urgenciasBodega.getDemografiaPacienteBodega();
             if (demografiaPacienteBodega != null) {

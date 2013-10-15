@@ -13,8 +13,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import Entidades_Bodega.CitasBodega;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import Entidades_Bodega.FormulasBodega;
 import Entidades_Bodega.PagosBodega;
 import Entidades_Bodega.AfiliacionesBodega;
@@ -23,9 +22,10 @@ import Entidades_Bodega.RetirosBodega;
 import Entidades_Bodega.UrgenciasBodega;
 import Entidades_Bodega.RemisionesBodega;
 import java.sql.Date;
+import java.sql.Time;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-
+ 
 /**
  *
  * @author USER
@@ -548,5 +548,16 @@ public class DatesJpaController implements Serializable {
 
         return fecha;
     }
+     
+     
+     public long diferenciaDias(Dates fAnterior, Dates fPosterior){
+        java.util.Date fechaAnterior = null, fechaPosterior;
+        fechaAnterior=fAnterior.getDate();
+        fechaPosterior=fPosterior.getDate();
+        long diferencia= ( fechaAnterior.getTime() - fechaPosterior.getTime() );
+       // System.out.println("f anterior "+fechaAnterior+",f posterior "+fechaPosterior+", diferencia "+diferencia);
+      
+        return diferencia;
+     }
     
 }

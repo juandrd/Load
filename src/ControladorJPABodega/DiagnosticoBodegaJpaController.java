@@ -332,5 +332,25 @@ public class DiagnosticoBodegaJpaController implements Serializable {
 
         return false;
     }
+     
+         public DiagnosticoBodega consultar(String f) {          
+          
+         DiagnosticoBodega diagnostico=new DiagnosticoBodega();
+         List lista;
+         lista=findDiagnosticoBodegaEntities();
+         
+          for (int i = 0; i < lista.size(); i++) {
+              DiagnosticoBodega diag=(DiagnosticoBodega) lista.get(i);             
+              
+             
+              if(diag.getDescripcion().toString().equalsIgnoreCase(f)){                  
+                  diagnostico=diag;
+                 // System.out.println(diagnostico);
+                  break;
+              }
+          }
+
+        return diagnostico;
+    }
     
 }

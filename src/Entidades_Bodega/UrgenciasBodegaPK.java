@@ -22,8 +22,11 @@ public class UrgenciasBodegaPK implements Serializable {
     @Column(name = "demografia_paciente_key")
     private int demografiaPacienteKey;
     @Basic(optional = false)
-    @Column(name = "fecha_key")
-    private long fechaKey;
+    @Column(name = "fecha_solicitud_key")
+    private long fechaSolicitudKey;
+    @Basic(optional = false)
+    @Column(name = "fecha_atencion_key")
+    private long fechaAtencionKey;
     @Basic(optional = false)
     @Column(name = "empresa_key")
     private int empresaKey;
@@ -34,10 +37,11 @@ public class UrgenciasBodegaPK implements Serializable {
     public UrgenciasBodegaPK() {
     }
 
-    public UrgenciasBodegaPK(int pacienteKey, int demografiaPacienteKey, long fechaKey, int empresaKey, int preexistenciaKey) {
+    public UrgenciasBodegaPK(int pacienteKey, int demografiaPacienteKey, long fechaSolicitudKey, long fechaAtencionKey, int empresaKey, int preexistenciaKey) {
         this.pacienteKey = pacienteKey;
         this.demografiaPacienteKey = demografiaPacienteKey;
-        this.fechaKey = fechaKey;
+        this.fechaSolicitudKey = fechaSolicitudKey;
+        this.fechaAtencionKey = fechaAtencionKey;
         this.empresaKey = empresaKey;
         this.preexistenciaKey = preexistenciaKey;
     }
@@ -58,12 +62,20 @@ public class UrgenciasBodegaPK implements Serializable {
         this.demografiaPacienteKey = demografiaPacienteKey;
     }
 
-    public long getFechaKey() {
-        return fechaKey;
+    public long getFechaSolicitudKey() {
+        return fechaSolicitudKey;
     }
 
-    public void setFechaKey(long fechaKey) {
-        this.fechaKey = fechaKey;
+    public void setFechaSolicitudKey(long fechaSolicitudKey) {
+        this.fechaSolicitudKey = fechaSolicitudKey;
+    }
+
+    public long getFechaAtencionKey() {
+        return fechaAtencionKey;
+    }
+
+    public void setFechaAtencionKey(long fechaAtencionKey) {
+        this.fechaAtencionKey = fechaAtencionKey;
     }
 
     public int getEmpresaKey() {
@@ -87,7 +99,8 @@ public class UrgenciasBodegaPK implements Serializable {
         int hash = 0;
         hash += (int) pacienteKey;
         hash += (int) demografiaPacienteKey;
-        hash += (int) fechaKey;
+        hash += (int) fechaSolicitudKey;
+        hash += (int) fechaAtencionKey;
         hash += (int) empresaKey;
         hash += (int) preexistenciaKey;
         return hash;
@@ -106,7 +119,10 @@ public class UrgenciasBodegaPK implements Serializable {
         if (this.demografiaPacienteKey != other.demografiaPacienteKey) {
             return false;
         }
-        if (this.fechaKey != other.fechaKey) {
+        if (this.fechaSolicitudKey != other.fechaSolicitudKey) {
+            return false;
+        }
+        if (this.fechaAtencionKey != other.fechaAtencionKey) {
             return false;
         }
         if (this.empresaKey != other.empresaKey) {
@@ -120,7 +136,7 @@ public class UrgenciasBodegaPK implements Serializable {
 
     @Override
     public String toString() {
-        return "Entidades_Bodega.UrgenciasBodegaPK[ pacienteKey=" + pacienteKey + ", demografiaPacienteKey=" + demografiaPacienteKey + ", fechaKey=" + fechaKey + ", empresaKey=" + empresaKey + ", preexistenciaKey=" + preexistenciaKey + " ]";
+        return "Entidades_Bodega.UrgenciasBodegaPK[ pacienteKey=" + pacienteKey + ", demografiaPacienteKey=" + demografiaPacienteKey + ", fechaSolicitudKey=" + fechaSolicitudKey + ", fechaAtencionKey=" + fechaAtencionKey + ", empresaKey=" + empresaKey + ", preexistenciaKey=" + preexistenciaKey + " ]";
     }
     
 }

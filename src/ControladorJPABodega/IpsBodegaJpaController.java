@@ -407,5 +407,6 @@ public class IpsBodegaJpaController implements Serializable {
 
         return ips;
     }
-    
+     
+       
 }

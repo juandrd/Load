@@ -185,6 +185,7 @@ public class UrgenciasJpaController implements Serializable {
         int contador = 0;
 
         contador = controladorDiag.getDiagnosticoBodegaCount();
+        System.err.println("Urgencia"+contador);
 
         for (int i = 0; i < lista.size(); i++) {
             Urgencias urgencia = (Urgencias) lista.get(i);
@@ -192,23 +193,18 @@ public class UrgenciasJpaController implements Serializable {
             DiagnosticoBodega diag = new DiagnosticoBodega();
 
             if (controladorDiag.consultarPorNombre(urgencia.getDiagnostico().toString())) {
-                break;
+             //     System.err.println(contador + 1 + " " + urgencia.getDiagnostico().toString());
+          
             } else {
                 diag.setDiagnosticoKey(contador + 1);
-                System.out.println(contador + 1 + " " + urgencia.getDiagnostico().toString());
                 diag.setDescripcion(urgencia.getDiagnostico().toString());
+                
+                System.out.println(contador + 1 + " " + urgencia.getDiagnostico().toString()+" "+diag.getDescripcion());
                 controladorDiag.create(diag);
                 contador++;
             }
         }
-    }
+    }   
     
-    
-    public int calculoTiempoEspera(){
-        int dias=0;
-        
-        
-        
-        return dias;
-    }
+ 
 }
