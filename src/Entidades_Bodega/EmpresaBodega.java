@@ -35,6 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "EmpresaBodega.findByActividadComercial", query = "SELECT e FROM EmpresaBodega e WHERE e.actividadComercial = :actividadComercial"),
     @NamedQuery(name = "EmpresaBodega.findByCiudad", query = "SELECT e FROM EmpresaBodega e WHERE e.ciudad = :ciudad")})
 public class EmpresaBodega implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empresaBodega")
+    private List<AfiliacionesBodega> afiliacionesBodegaList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -54,8 +56,7 @@ public class EmpresaBodega implements Serializable {
     private String ciudad;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "empresaBodega")
     private List<PagosBodega> pagosBodegaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empresaBodega")
-    private List<AfiliacionesBodega> afiliacionesBodegaList;
+  
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "empresaBodega")
     private List<UrgenciasBodega> urgenciasBodegaList;
 
@@ -131,16 +132,7 @@ public class EmpresaBodega implements Serializable {
         this.pagosBodegaList = pagosBodegaList;
     }
 
-    @XmlTransient
-    public List<AfiliacionesBodega> getAfiliacionesBodegaList() {
-        return afiliacionesBodegaList;
-    }
-
-    public void setAfiliacionesBodegaList(List<AfiliacionesBodega> afiliacionesBodegaList) {
-        this.afiliacionesBodegaList = afiliacionesBodegaList;
-    }
-
-    @XmlTransient
+       @XmlTransient
     public List<UrgenciasBodega> getUrgenciasBodegaList() {
         return urgenciasBodegaList;
     }
@@ -173,5 +165,14 @@ public class EmpresaBodega implements Serializable {
     public String toString() {
         return "Entidades_Bodega.EmpresaBodega[ empresaKey=" + empresaKey + " ]";
     }
-    
+
+    @XmlTransient
+    public List<AfiliacionesBodega> getAfiliacionesBodegaList() {
+        return afiliacionesBodegaList;
+    }
+
+    public void setAfiliacionesBodegaList(List<AfiliacionesBodega> afiliacionesBodegaList) {
+        this.afiliacionesBodegaList = afiliacionesBodegaList;
+    }
+      
 }

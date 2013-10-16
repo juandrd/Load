@@ -139,5 +139,23 @@ public class ServicioPosBodegaJpaController implements Serializable {
             em.close();
         }
     }
-    
+     public ServicioPosBodega consultar(String f) {          
+          
+         ServicioPosBodega s=new ServicioPosBodega();
+         List lista;
+         lista=findServicioPosBodegaEntities();
+         
+          for (int i = 0; i < lista.size(); i++) {
+              ServicioPosBodega sPOS=(ServicioPosBodega) lista.get(i);             
+              
+             
+              if(sPOS.getCodServicio().toString().equalsIgnoreCase(f)){                  
+                  s=sPOS;
+                //  System.err.println(s);
+                  break;
+              }
+          }
+
+        return s;
+    }
 }

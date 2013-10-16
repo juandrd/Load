@@ -13,12 +13,11 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import Entidades_Bodega.CitasBodega;
+import Entidades_Bodega.DemografiaPacienteBodega;
 import java.util.ArrayList;
 import java.util.List;
 import Entidades_Bodega.FormulasBodega;
 import Entidades_Bodega.PagosBodega;
-import Entidades_Bodega.AfiliacionesBodega;
-import Entidades_Bodega.DemografiaPacienteBodega;
 import Entidades_Bodega.RetirosBodega;
 import Entidades_Bodega.UrgenciasBodega;
 import Entidades_Bodega.RemisionesBodega;
@@ -49,9 +48,6 @@ public class DemografiaPacienteBodegaJpaController implements Serializable {
         }
         if (demografiaPacienteBodega.getPagosBodegaList() == null) {
             demografiaPacienteBodega.setPagosBodegaList(new ArrayList<PagosBodega>());
-        }
-        if (demografiaPacienteBodega.getAfiliacionesBodegaList() == null) {
-            demografiaPacienteBodega.setAfiliacionesBodegaList(new ArrayList<AfiliacionesBodega>());
         }
         if (demografiaPacienteBodega.getRetirosBodegaList() == null) {
             demografiaPacienteBodega.setRetirosBodegaList(new ArrayList<RetirosBodega>());
@@ -84,12 +80,6 @@ public class DemografiaPacienteBodegaJpaController implements Serializable {
                 attachedPagosBodegaList.add(pagosBodegaListPagosBodegaToAttach);
             }
             demografiaPacienteBodega.setPagosBodegaList(attachedPagosBodegaList);
-            List<AfiliacionesBodega> attachedAfiliacionesBodegaList = new ArrayList<AfiliacionesBodega>();
-            for (AfiliacionesBodega afiliacionesBodegaListAfiliacionesBodegaToAttach : demografiaPacienteBodega.getAfiliacionesBodegaList()) {
-                afiliacionesBodegaListAfiliacionesBodegaToAttach = em.getReference(afiliacionesBodegaListAfiliacionesBodegaToAttach.getClass(), afiliacionesBodegaListAfiliacionesBodegaToAttach.getAfiliacionesBodegaPK());
-                attachedAfiliacionesBodegaList.add(afiliacionesBodegaListAfiliacionesBodegaToAttach);
-            }
-            demografiaPacienteBodega.setAfiliacionesBodegaList(attachedAfiliacionesBodegaList);
             List<RetirosBodega> attachedRetirosBodegaList = new ArrayList<RetirosBodega>();
             for (RetirosBodega retirosBodegaListRetirosBodegaToAttach : demografiaPacienteBodega.getRetirosBodegaList()) {
                 retirosBodegaListRetirosBodegaToAttach = em.getReference(retirosBodegaListRetirosBodegaToAttach.getClass(), retirosBodegaListRetirosBodegaToAttach.getRetirosBodegaPK());
@@ -134,15 +124,6 @@ public class DemografiaPacienteBodegaJpaController implements Serializable {
                 if (oldDemografiaPacienteBodegaOfPagosBodegaListPagosBodega != null) {
                     oldDemografiaPacienteBodegaOfPagosBodegaListPagosBodega.getPagosBodegaList().remove(pagosBodegaListPagosBodega);
                     oldDemografiaPacienteBodegaOfPagosBodegaListPagosBodega = em.merge(oldDemografiaPacienteBodegaOfPagosBodegaListPagosBodega);
-                }
-            }
-            for (AfiliacionesBodega afiliacionesBodegaListAfiliacionesBodega : demografiaPacienteBodega.getAfiliacionesBodegaList()) {
-                DemografiaPacienteBodega oldDemografiaPacienteBodegaOfAfiliacionesBodegaListAfiliacionesBodega = afiliacionesBodegaListAfiliacionesBodega.getDemografiaPacienteBodega();
-                afiliacionesBodegaListAfiliacionesBodega.setDemografiaPacienteBodega(demografiaPacienteBodega);
-                afiliacionesBodegaListAfiliacionesBodega = em.merge(afiliacionesBodegaListAfiliacionesBodega);
-                if (oldDemografiaPacienteBodegaOfAfiliacionesBodegaListAfiliacionesBodega != null) {
-                    oldDemografiaPacienteBodegaOfAfiliacionesBodegaListAfiliacionesBodega.getAfiliacionesBodegaList().remove(afiliacionesBodegaListAfiliacionesBodega);
-                    oldDemografiaPacienteBodegaOfAfiliacionesBodegaListAfiliacionesBodega = em.merge(oldDemografiaPacienteBodegaOfAfiliacionesBodegaListAfiliacionesBodega);
                 }
             }
             for (RetirosBodega retirosBodegaListRetirosBodega : demografiaPacienteBodega.getRetirosBodegaList()) {
@@ -197,8 +178,6 @@ public class DemografiaPacienteBodegaJpaController implements Serializable {
             List<FormulasBodega> formulasBodegaListNew = demografiaPacienteBodega.getFormulasBodegaList();
             List<PagosBodega> pagosBodegaListOld = persistentDemografiaPacienteBodega.getPagosBodegaList();
             List<PagosBodega> pagosBodegaListNew = demografiaPacienteBodega.getPagosBodegaList();
-            List<AfiliacionesBodega> afiliacionesBodegaListOld = persistentDemografiaPacienteBodega.getAfiliacionesBodegaList();
-            List<AfiliacionesBodega> afiliacionesBodegaListNew = demografiaPacienteBodega.getAfiliacionesBodegaList();
             List<RetirosBodega> retirosBodegaListOld = persistentDemografiaPacienteBodega.getRetirosBodegaList();
             List<RetirosBodega> retirosBodegaListNew = demografiaPacienteBodega.getRetirosBodegaList();
             List<UrgenciasBodega> urgenciasBodegaListOld = persistentDemografiaPacienteBodega.getUrgenciasBodegaList();
@@ -228,14 +207,6 @@ public class DemografiaPacienteBodegaJpaController implements Serializable {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
                     illegalOrphanMessages.add("You must retain PagosBodega " + pagosBodegaListOldPagosBodega + " since its demografiaPacienteBodega field is not nullable.");
-                }
-            }
-            for (AfiliacionesBodega afiliacionesBodegaListOldAfiliacionesBodega : afiliacionesBodegaListOld) {
-                if (!afiliacionesBodegaListNew.contains(afiliacionesBodegaListOldAfiliacionesBodega)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain AfiliacionesBodega " + afiliacionesBodegaListOldAfiliacionesBodega + " since its demografiaPacienteBodega field is not nullable.");
                 }
             }
             for (RetirosBodega retirosBodegaListOldRetirosBodega : retirosBodegaListOld) {
@@ -286,13 +257,6 @@ public class DemografiaPacienteBodegaJpaController implements Serializable {
             }
             pagosBodegaListNew = attachedPagosBodegaListNew;
             demografiaPacienteBodega.setPagosBodegaList(pagosBodegaListNew);
-            List<AfiliacionesBodega> attachedAfiliacionesBodegaListNew = new ArrayList<AfiliacionesBodega>();
-            for (AfiliacionesBodega afiliacionesBodegaListNewAfiliacionesBodegaToAttach : afiliacionesBodegaListNew) {
-                afiliacionesBodegaListNewAfiliacionesBodegaToAttach = em.getReference(afiliacionesBodegaListNewAfiliacionesBodegaToAttach.getClass(), afiliacionesBodegaListNewAfiliacionesBodegaToAttach.getAfiliacionesBodegaPK());
-                attachedAfiliacionesBodegaListNew.add(afiliacionesBodegaListNewAfiliacionesBodegaToAttach);
-            }
-            afiliacionesBodegaListNew = attachedAfiliacionesBodegaListNew;
-            demografiaPacienteBodega.setAfiliacionesBodegaList(afiliacionesBodegaListNew);
             List<RetirosBodega> attachedRetirosBodegaListNew = new ArrayList<RetirosBodega>();
             for (RetirosBodega retirosBodegaListNewRetirosBodegaToAttach : retirosBodegaListNew) {
                 retirosBodegaListNewRetirosBodegaToAttach = em.getReference(retirosBodegaListNewRetirosBodegaToAttach.getClass(), retirosBodegaListNewRetirosBodegaToAttach.getRetirosBodegaPK());
@@ -345,17 +309,6 @@ public class DemografiaPacienteBodegaJpaController implements Serializable {
                     if (oldDemografiaPacienteBodegaOfPagosBodegaListNewPagosBodega != null && !oldDemografiaPacienteBodegaOfPagosBodegaListNewPagosBodega.equals(demografiaPacienteBodega)) {
                         oldDemografiaPacienteBodegaOfPagosBodegaListNewPagosBodega.getPagosBodegaList().remove(pagosBodegaListNewPagosBodega);
                         oldDemografiaPacienteBodegaOfPagosBodegaListNewPagosBodega = em.merge(oldDemografiaPacienteBodegaOfPagosBodegaListNewPagosBodega);
-                    }
-                }
-            }
-            for (AfiliacionesBodega afiliacionesBodegaListNewAfiliacionesBodega : afiliacionesBodegaListNew) {
-                if (!afiliacionesBodegaListOld.contains(afiliacionesBodegaListNewAfiliacionesBodega)) {
-                    DemografiaPacienteBodega oldDemografiaPacienteBodegaOfAfiliacionesBodegaListNewAfiliacionesBodega = afiliacionesBodegaListNewAfiliacionesBodega.getDemografiaPacienteBodega();
-                    afiliacionesBodegaListNewAfiliacionesBodega.setDemografiaPacienteBodega(demografiaPacienteBodega);
-                    afiliacionesBodegaListNewAfiliacionesBodega = em.merge(afiliacionesBodegaListNewAfiliacionesBodega);
-                    if (oldDemografiaPacienteBodegaOfAfiliacionesBodegaListNewAfiliacionesBodega != null && !oldDemografiaPacienteBodegaOfAfiliacionesBodegaListNewAfiliacionesBodega.equals(demografiaPacienteBodega)) {
-                        oldDemografiaPacienteBodegaOfAfiliacionesBodegaListNewAfiliacionesBodega.getAfiliacionesBodegaList().remove(afiliacionesBodegaListNewAfiliacionesBodega);
-                        oldDemografiaPacienteBodegaOfAfiliacionesBodegaListNewAfiliacionesBodega = em.merge(oldDemografiaPacienteBodegaOfAfiliacionesBodegaListNewAfiliacionesBodega);
                     }
                 }
             }
@@ -442,13 +395,6 @@ public class DemografiaPacienteBodegaJpaController implements Serializable {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
                 illegalOrphanMessages.add("This DemografiaPacienteBodega (" + demografiaPacienteBodega + ") cannot be destroyed since the PagosBodega " + pagosBodegaListOrphanCheckPagosBodega + " in its pagosBodegaList field has a non-nullable demografiaPacienteBodega field.");
-            }
-            List<AfiliacionesBodega> afiliacionesBodegaListOrphanCheck = demografiaPacienteBodega.getAfiliacionesBodegaList();
-            for (AfiliacionesBodega afiliacionesBodegaListOrphanCheckAfiliacionesBodega : afiliacionesBodegaListOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This DemografiaPacienteBodega (" + demografiaPacienteBodega + ") cannot be destroyed since the AfiliacionesBodega " + afiliacionesBodegaListOrphanCheckAfiliacionesBodega + " in its afiliacionesBodegaList field has a non-nullable demografiaPacienteBodega field.");
             }
             List<RetirosBodega> retirosBodegaListOrphanCheck = demografiaPacienteBodega.getRetirosBodegaList();
             for (RetirosBodega retirosBodegaListOrphanCheckRetirosBodega : retirosBodegaListOrphanCheck) {

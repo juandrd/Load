@@ -6,6 +6,9 @@ package ControladorJPA;
 
 import ControladorJPA.exceptions.NonexistentEntityException;
 import ControladorJPA.exceptions.PreexistingEntityException;
+import ControladorJPABodega.DiagnosticoBodegaJpaController;
+import ControladorJPABodega.FabricaBodega;
+import Entidades_Bodega.DiagnosticoBodega;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
@@ -23,7 +26,7 @@ import javax.persistence.EntityManagerFactory;
  * @author USER
  */
 public class RemisionesJpaController implements Serializable {
-
+    FabricaBodega fabrica_bodega;
     public RemisionesJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
@@ -226,5 +229,31 @@ public class RemisionesJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public void crearDiagnostico() throws ControladorJPABodega.exceptions.PreexistingEntityException, Exception {
+        fabrica_bodega = new FabricaBodega();
+        DiagnosticoBodegaJpaController controladorDiag = new DiagnosticoBodegaJpaController(fabrica_bodega.getFactory());
+
+        List lista;
+        lista = findRemisionesEntities();
+        int contador = 0;
+
+        contador = controladorDiag.getDiagnosticoBodegaCount();
+        System.err.println("Remision" + contador);
+        for (int i = 0; i < lista.size(); i++) {
+
+            Remisiones rem = (Remisiones) lista.get(i);
+            DiagnosticoBodega diag = new DiagnosticoBodega();
+
+            if (controladorDiag.consultarPorNombre(rem.getDiagnostico().toString())) {
+                //    System.err.println(contador + 1 + " " + cita.getDiagnostico().toString());
+            } else {
+                diag.setDiagnosticoKey(contador + 1);
+                System.out.println(contador + 1 + " " + rem.getDiagnostico().toString());
+                diag.setDescripcion(rem.getDiagnostico().toString());
+                controladorDiag.create(diag);
+                contador++;
+            }
+        }
+    }
 }

@@ -13,19 +13,17 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import Entidades_Bodega.CitasBodega;
-import java.util.*;
+import Entidades_Bodega.Dates;
+import java.util.ArrayList;
+import java.util.List;
 import Entidades_Bodega.FormulasBodega;
 import Entidades_Bodega.PagosBodega;
-import Entidades_Bodega.AfiliacionesBodega;
-import Entidades_Bodega.Dates;
 import Entidades_Bodega.RetirosBodega;
 import Entidades_Bodega.UrgenciasBodega;
 import Entidades_Bodega.RemisionesBodega;
-import java.sql.Date;
-import java.sql.Time;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
- 
+
 /**
  *
  * @author USER
@@ -50,9 +48,6 @@ public class DatesJpaController implements Serializable {
         }
         if (dates.getPagosBodegaList() == null) {
             dates.setPagosBodegaList(new ArrayList<PagosBodega>());
-        }
-        if (dates.getAfiliacionesBodegaList() == null) {
-            dates.setAfiliacionesBodegaList(new ArrayList<AfiliacionesBodega>());
         }
         if (dates.getRetirosBodegaList() == null) {
             dates.setRetirosBodegaList(new ArrayList<RetirosBodega>());
@@ -85,12 +80,6 @@ public class DatesJpaController implements Serializable {
                 attachedPagosBodegaList.add(pagosBodegaListPagosBodegaToAttach);
             }
             dates.setPagosBodegaList(attachedPagosBodegaList);
-            List<AfiliacionesBodega> attachedAfiliacionesBodegaList = new ArrayList<AfiliacionesBodega>();
-            for (AfiliacionesBodega afiliacionesBodegaListAfiliacionesBodegaToAttach : dates.getAfiliacionesBodegaList()) {
-                afiliacionesBodegaListAfiliacionesBodegaToAttach = em.getReference(afiliacionesBodegaListAfiliacionesBodegaToAttach.getClass(), afiliacionesBodegaListAfiliacionesBodegaToAttach.getAfiliacionesBodegaPK());
-                attachedAfiliacionesBodegaList.add(afiliacionesBodegaListAfiliacionesBodegaToAttach);
-            }
-            dates.setAfiliacionesBodegaList(attachedAfiliacionesBodegaList);
             List<RetirosBodega> attachedRetirosBodegaList = new ArrayList<RetirosBodega>();
             for (RetirosBodega retirosBodegaListRetirosBodegaToAttach : dates.getRetirosBodegaList()) {
                 retirosBodegaListRetirosBodegaToAttach = em.getReference(retirosBodegaListRetirosBodegaToAttach.getClass(), retirosBodegaListRetirosBodegaToAttach.getRetirosBodegaPK());
@@ -135,15 +124,6 @@ public class DatesJpaController implements Serializable {
                 if (oldDatesOfPagosBodegaListPagosBodega != null) {
                     oldDatesOfPagosBodegaListPagosBodega.getPagosBodegaList().remove(pagosBodegaListPagosBodega);
                     oldDatesOfPagosBodegaListPagosBodega = em.merge(oldDatesOfPagosBodegaListPagosBodega);
-                }
-            }
-            for (AfiliacionesBodega afiliacionesBodegaListAfiliacionesBodega : dates.getAfiliacionesBodegaList()) {
-                Dates oldDatesOfAfiliacionesBodegaListAfiliacionesBodega = afiliacionesBodegaListAfiliacionesBodega.getDates();
-                afiliacionesBodegaListAfiliacionesBodega.setDates(dates);
-                afiliacionesBodegaListAfiliacionesBodega = em.merge(afiliacionesBodegaListAfiliacionesBodega);
-                if (oldDatesOfAfiliacionesBodegaListAfiliacionesBodega != null) {
-                    oldDatesOfAfiliacionesBodegaListAfiliacionesBodega.getAfiliacionesBodegaList().remove(afiliacionesBodegaListAfiliacionesBodega);
-                    oldDatesOfAfiliacionesBodegaListAfiliacionesBodega = em.merge(oldDatesOfAfiliacionesBodegaListAfiliacionesBodega);
                 }
             }
             for (RetirosBodega retirosBodegaListRetirosBodega : dates.getRetirosBodegaList()) {
@@ -198,8 +178,6 @@ public class DatesJpaController implements Serializable {
             List<FormulasBodega> formulasBodegaListNew = dates.getFormulasBodegaList();
             List<PagosBodega> pagosBodegaListOld = persistentDates.getPagosBodegaList();
             List<PagosBodega> pagosBodegaListNew = dates.getPagosBodegaList();
-            List<AfiliacionesBodega> afiliacionesBodegaListOld = persistentDates.getAfiliacionesBodegaList();
-            List<AfiliacionesBodega> afiliacionesBodegaListNew = dates.getAfiliacionesBodegaList();
             List<RetirosBodega> retirosBodegaListOld = persistentDates.getRetirosBodegaList();
             List<RetirosBodega> retirosBodegaListNew = dates.getRetirosBodegaList();
             List<UrgenciasBodega> urgenciasBodegaListOld = persistentDates.getUrgenciasBodegaList();
@@ -229,14 +207,6 @@ public class DatesJpaController implements Serializable {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
                     illegalOrphanMessages.add("You must retain PagosBodega " + pagosBodegaListOldPagosBodega + " since its dates field is not nullable.");
-                }
-            }
-            for (AfiliacionesBodega afiliacionesBodegaListOldAfiliacionesBodega : afiliacionesBodegaListOld) {
-                if (!afiliacionesBodegaListNew.contains(afiliacionesBodegaListOldAfiliacionesBodega)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain AfiliacionesBodega " + afiliacionesBodegaListOldAfiliacionesBodega + " since its dates field is not nullable.");
                 }
             }
             for (RetirosBodega retirosBodegaListOldRetirosBodega : retirosBodegaListOld) {
@@ -287,13 +257,6 @@ public class DatesJpaController implements Serializable {
             }
             pagosBodegaListNew = attachedPagosBodegaListNew;
             dates.setPagosBodegaList(pagosBodegaListNew);
-            List<AfiliacionesBodega> attachedAfiliacionesBodegaListNew = new ArrayList<AfiliacionesBodega>();
-            for (AfiliacionesBodega afiliacionesBodegaListNewAfiliacionesBodegaToAttach : afiliacionesBodegaListNew) {
-                afiliacionesBodegaListNewAfiliacionesBodegaToAttach = em.getReference(afiliacionesBodegaListNewAfiliacionesBodegaToAttach.getClass(), afiliacionesBodegaListNewAfiliacionesBodegaToAttach.getAfiliacionesBodegaPK());
-                attachedAfiliacionesBodegaListNew.add(afiliacionesBodegaListNewAfiliacionesBodegaToAttach);
-            }
-            afiliacionesBodegaListNew = attachedAfiliacionesBodegaListNew;
-            dates.setAfiliacionesBodegaList(afiliacionesBodegaListNew);
             List<RetirosBodega> attachedRetirosBodegaListNew = new ArrayList<RetirosBodega>();
             for (RetirosBodega retirosBodegaListNewRetirosBodegaToAttach : retirosBodegaListNew) {
                 retirosBodegaListNewRetirosBodegaToAttach = em.getReference(retirosBodegaListNewRetirosBodegaToAttach.getClass(), retirosBodegaListNewRetirosBodegaToAttach.getRetirosBodegaPK());
@@ -346,17 +309,6 @@ public class DatesJpaController implements Serializable {
                     if (oldDatesOfPagosBodegaListNewPagosBodega != null && !oldDatesOfPagosBodegaListNewPagosBodega.equals(dates)) {
                         oldDatesOfPagosBodegaListNewPagosBodega.getPagosBodegaList().remove(pagosBodegaListNewPagosBodega);
                         oldDatesOfPagosBodegaListNewPagosBodega = em.merge(oldDatesOfPagosBodegaListNewPagosBodega);
-                    }
-                }
-            }
-            for (AfiliacionesBodega afiliacionesBodegaListNewAfiliacionesBodega : afiliacionesBodegaListNew) {
-                if (!afiliacionesBodegaListOld.contains(afiliacionesBodegaListNewAfiliacionesBodega)) {
-                    Dates oldDatesOfAfiliacionesBodegaListNewAfiliacionesBodega = afiliacionesBodegaListNewAfiliacionesBodega.getDates();
-                    afiliacionesBodegaListNewAfiliacionesBodega.setDates(dates);
-                    afiliacionesBodegaListNewAfiliacionesBodega = em.merge(afiliacionesBodegaListNewAfiliacionesBodega);
-                    if (oldDatesOfAfiliacionesBodegaListNewAfiliacionesBodega != null && !oldDatesOfAfiliacionesBodegaListNewAfiliacionesBodega.equals(dates)) {
-                        oldDatesOfAfiliacionesBodegaListNewAfiliacionesBodega.getAfiliacionesBodegaList().remove(afiliacionesBodegaListNewAfiliacionesBodega);
-                        oldDatesOfAfiliacionesBodegaListNewAfiliacionesBodega = em.merge(oldDatesOfAfiliacionesBodegaListNewAfiliacionesBodega);
                     }
                 }
             }
@@ -444,13 +396,6 @@ public class DatesJpaController implements Serializable {
                 }
                 illegalOrphanMessages.add("This Dates (" + dates + ") cannot be destroyed since the PagosBodega " + pagosBodegaListOrphanCheckPagosBodega + " in its pagosBodegaList field has a non-nullable dates field.");
             }
-            List<AfiliacionesBodega> afiliacionesBodegaListOrphanCheck = dates.getAfiliacionesBodegaList();
-            for (AfiliacionesBodega afiliacionesBodegaListOrphanCheckAfiliacionesBodega : afiliacionesBodegaListOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Dates (" + dates + ") cannot be destroyed since the AfiliacionesBodega " + afiliacionesBodegaListOrphanCheckAfiliacionesBodega + " in its afiliacionesBodegaList field has a non-nullable dates field.");
-            }
             List<RetirosBodega> retirosBodegaListOrphanCheck = dates.getRetirosBodegaList();
             for (RetirosBodega retirosBodegaListOrphanCheckRetirosBodega : retirosBodegaListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
@@ -529,6 +474,7 @@ public class DatesJpaController implements Serializable {
             em.close();
         }
     }
+    
      public Dates consultar(String f) {
 
          Dates fecha=new Dates();
@@ -548,9 +494,7 @@ public class DatesJpaController implements Serializable {
 
         return fecha;
     }
-     
-     
-     public long diferenciaDias(Dates fAnterior, Dates fPosterior){
+      public long diferenciaDias(Dates fAnterior, Dates fPosterior){
         java.util.Date fechaAnterior = null, fechaPosterior;
         fechaAnterior=fAnterior.getDate();
         fechaPosterior=fPosterior.getDate();
@@ -559,5 +503,6 @@ public class DatesJpaController implements Serializable {
       
         return diferencia;
      }
+    
     
 }

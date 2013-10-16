@@ -16,8 +16,11 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class RemisionesBodegaPK implements Serializable {
     @Basic(optional = false)
-    @Column(name = "medico_key")
-    private int medicoKey;
+    @Column(name = "medico_atiende_key")
+    private int medicoAtiendeKey;
+    @Basic(optional = false)
+    @Column(name = "medico_remitente_key")
+    private int medicoRemitenteKey;
     @Basic(optional = false)
     @Column(name = "paciente_key")
     private int pacienteKey;
@@ -25,8 +28,11 @@ public class RemisionesBodegaPK implements Serializable {
     @Column(name = "demografia_paciente_key")
     private int demografiaPacienteKey;
     @Basic(optional = false)
-    @Column(name = "fecha_key")
-    private long fechaKey;
+    @Column(name = "fecha_remision_key")
+    private long fechaRemisionKey;
+    @Basic(optional = false)
+    @Column(name = "fecha_atencion_key")
+    private long fechaAtencionKey;
     @Basic(optional = false)
     @Column(name = "diagnostico_key")
     private int diagnosticoKey;
@@ -43,23 +49,33 @@ public class RemisionesBodegaPK implements Serializable {
     public RemisionesBodegaPK() {
     }
 
-    public RemisionesBodegaPK(int medicoKey, int pacienteKey, int demografiaPacienteKey, long fechaKey, int diagnosticoKey, int preexistenciaKey, int servicioPosKey, int ipsKey) {
-        this.medicoKey = medicoKey;
+    public RemisionesBodegaPK(int medicoAtiendeKey, int medicoRemitenteKey, int pacienteKey, int demografiaPacienteKey, long fechaRemisionKey, long fechaAtencionKey, int diagnosticoKey, int preexistenciaKey, int servicioPosKey, int ipsKey) {
+        this.medicoAtiendeKey = medicoAtiendeKey;
+        this.medicoRemitenteKey = medicoRemitenteKey;
         this.pacienteKey = pacienteKey;
         this.demografiaPacienteKey = demografiaPacienteKey;
-        this.fechaKey = fechaKey;
+        this.fechaRemisionKey = fechaRemisionKey;
+        this.fechaAtencionKey = fechaAtencionKey;
         this.diagnosticoKey = diagnosticoKey;
         this.preexistenciaKey = preexistenciaKey;
         this.servicioPosKey = servicioPosKey;
         this.ipsKey = ipsKey;
     }
 
-    public int getMedicoKey() {
-        return medicoKey;
+    public int getMedicoAtiendeKey() {
+        return medicoAtiendeKey;
     }
 
-    public void setMedicoKey(int medicoKey) {
-        this.medicoKey = medicoKey;
+    public void setMedicoAtiendeKey(int medicoAtiendeKey) {
+        this.medicoAtiendeKey = medicoAtiendeKey;
+    }
+
+    public int getMedicoRemitenteKey() {
+        return medicoRemitenteKey;
+    }
+
+    public void setMedicoRemitenteKey(int medicoRemitenteKey) {
+        this.medicoRemitenteKey = medicoRemitenteKey;
     }
 
     public int getPacienteKey() {
@@ -78,12 +94,20 @@ public class RemisionesBodegaPK implements Serializable {
         this.demografiaPacienteKey = demografiaPacienteKey;
     }
 
-    public long getFechaKey() {
-        return fechaKey;
+    public long getFechaRemisionKey() {
+        return fechaRemisionKey;
     }
 
-    public void setFechaKey(long fechaKey) {
-        this.fechaKey = fechaKey;
+    public void setFechaRemisionKey(long fechaRemisionKey) {
+        this.fechaRemisionKey = fechaRemisionKey;
+    }
+
+    public long getFechaAtencionKey() {
+        return fechaAtencionKey;
+    }
+
+    public void setFechaAtencionKey(long fechaAtencionKey) {
+        this.fechaAtencionKey = fechaAtencionKey;
     }
 
     public int getDiagnosticoKey() {
@@ -121,10 +145,12 @@ public class RemisionesBodegaPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) medicoKey;
+        hash += (int) medicoAtiendeKey;
+        hash += (int) medicoRemitenteKey;
         hash += (int) pacienteKey;
         hash += (int) demografiaPacienteKey;
-        hash += (int) fechaKey;
+        hash += (int) fechaRemisionKey;
+        hash += (int) fechaAtencionKey;
         hash += (int) diagnosticoKey;
         hash += (int) preexistenciaKey;
         hash += (int) servicioPosKey;
@@ -139,7 +165,10 @@ public class RemisionesBodegaPK implements Serializable {
             return false;
         }
         RemisionesBodegaPK other = (RemisionesBodegaPK) object;
-        if (this.medicoKey != other.medicoKey) {
+        if (this.medicoAtiendeKey != other.medicoAtiendeKey) {
+            return false;
+        }
+        if (this.medicoRemitenteKey != other.medicoRemitenteKey) {
             return false;
         }
         if (this.pacienteKey != other.pacienteKey) {
@@ -148,7 +177,10 @@ public class RemisionesBodegaPK implements Serializable {
         if (this.demografiaPacienteKey != other.demografiaPacienteKey) {
             return false;
         }
-        if (this.fechaKey != other.fechaKey) {
+        if (this.fechaRemisionKey != other.fechaRemisionKey) {
+            return false;
+        }
+        if (this.fechaAtencionKey != other.fechaAtencionKey) {
             return false;
         }
         if (this.diagnosticoKey != other.diagnosticoKey) {
@@ -168,7 +200,7 @@ public class RemisionesBodegaPK implements Serializable {
 
     @Override
     public String toString() {
-        return "Entidades_Bodega.RemisionesBodegaPK[ medicoKey=" + medicoKey + ", pacienteKey=" + pacienteKey + ", demografiaPacienteKey=" + demografiaPacienteKey + ", fechaKey=" + fechaKey + ", diagnosticoKey=" + diagnosticoKey + ", preexistenciaKey=" + preexistenciaKey + ", servicioPosKey=" + servicioPosKey + ", ipsKey=" + ipsKey + " ]";
+        return "Entidades_Bodega.RemisionesBodegaPK[ medicoAtiendeKey=" + medicoAtiendeKey + ", medicoRemitenteKey=" + medicoRemitenteKey + ", pacienteKey=" + pacienteKey + ", demografiaPacienteKey=" + demografiaPacienteKey + ", fechaRemisionKey=" + fechaRemisionKey + ", fechaAtencionKey=" + fechaAtencionKey + ", diagnosticoKey=" + diagnosticoKey + ", preexistenciaKey=" + preexistenciaKey + ", servicioPosKey=" + servicioPosKey + ", ipsKey=" + ipsKey + " ]";
     }
     
 }

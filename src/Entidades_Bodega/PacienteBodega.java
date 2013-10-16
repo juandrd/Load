@@ -41,6 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "PacienteBodega.findByFechaAfiliacion", query = "SELECT p FROM PacienteBodega p WHERE p.fechaAfiliacion = :fechaAfiliacion"),
     @NamedQuery(name = "PacienteBodega.findByDiscapacidad", query = "SELECT p FROM PacienteBodega p WHERE p.discapacidad = :discapacidad")})
 public class PacienteBodega implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pacienteBodega")
+    private List<AfiliacionesBodega> afiliacionesBodegaList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -72,8 +74,7 @@ public class PacienteBodega implements Serializable {
     private List<FormulasBodega> formulasBodegaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pacienteBodega")
     private List<PagosBodega> pagosBodegaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pacienteBodega")
-    private List<AfiliacionesBodega> afiliacionesBodegaList;
+   
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pacienteBodega")
     private List<RetirosBodega> retirosBodegaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pacienteBodega")
@@ -195,14 +196,8 @@ public class PacienteBodega implements Serializable {
         this.pagosBodegaList = pagosBodegaList;
     }
 
-    @XmlTransient
-    public List<AfiliacionesBodega> getAfiliacionesBodegaList() {
-        return afiliacionesBodegaList;
-    }
+   
 
-    public void setAfiliacionesBodegaList(List<AfiliacionesBodega> afiliacionesBodegaList) {
-        this.afiliacionesBodegaList = afiliacionesBodegaList;
-    }
 
     @XmlTransient
     public List<RetirosBodega> getRetirosBodegaList() {
@@ -254,6 +249,15 @@ public class PacienteBodega implements Serializable {
     @Override
     public String toString() {
         return "Entidades_Bodega.PacienteBodega[ pacienteKey=" + pacienteKey + " ]";
+    }
+
+    @XmlTransient
+    public List<AfiliacionesBodega> getAfiliacionesBodegaList() {
+        return afiliacionesBodegaList;
+    }
+
+    public void setAfiliacionesBodegaList(List<AfiliacionesBodega> afiliacionesBodegaList) {
+        this.afiliacionesBodegaList = afiliacionesBodegaList;
     }
     
 }

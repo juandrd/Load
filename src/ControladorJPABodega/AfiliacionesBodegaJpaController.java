@@ -41,11 +41,11 @@ public class AfiliacionesBodegaJpaController implements Serializable {
         if (afiliacionesBodega.getAfiliacionesBodegaPK() == null) {
             afiliacionesBodega.setAfiliacionesBodegaPK(new AfiliacionesBodegaPK());
         }
-        afiliacionesBodega.getAfiliacionesBodegaPK().setPacienteKey(afiliacionesBodega.getPacienteBodega().getPacienteKey());
+        afiliacionesBodega.getAfiliacionesBodegaPK().setEmpresaKey(afiliacionesBodega.getEmpresaBodega().getEmpresaKey());
         afiliacionesBodega.getAfiliacionesBodegaPK().setIpsKey(afiliacionesBodega.getIpsBodega().getIpsKey());
         afiliacionesBodega.getAfiliacionesBodegaPK().setDemografiaPacienteKey(afiliacionesBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
+        afiliacionesBodega.getAfiliacionesBodegaPK().setPacienteKey(afiliacionesBodega.getPacienteBodega().getPacienteKey());
         afiliacionesBodega.getAfiliacionesBodegaPK().setFechaKey(afiliacionesBodega.getDates().getDateId());
-        afiliacionesBodega.getAfiliacionesBodegaPK().setEmpresaKey(afiliacionesBodega.getEmpresaBodega().getEmpresaKey());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -110,11 +110,11 @@ public class AfiliacionesBodegaJpaController implements Serializable {
     }
 
     public void edit(AfiliacionesBodega afiliacionesBodega) throws NonexistentEntityException, Exception {
-        afiliacionesBodega.getAfiliacionesBodegaPK().setPacienteKey(afiliacionesBodega.getPacienteBodega().getPacienteKey());
+        afiliacionesBodega.getAfiliacionesBodegaPK().setEmpresaKey(afiliacionesBodega.getEmpresaBodega().getEmpresaKey());
         afiliacionesBodega.getAfiliacionesBodegaPK().setIpsKey(afiliacionesBodega.getIpsBodega().getIpsKey());
         afiliacionesBodega.getAfiliacionesBodegaPK().setDemografiaPacienteKey(afiliacionesBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
+        afiliacionesBodega.getAfiliacionesBodegaPK().setPacienteKey(afiliacionesBodega.getPacienteBodega().getPacienteKey());
         afiliacionesBodega.getAfiliacionesBodegaPK().setFechaKey(afiliacionesBodega.getDates().getDateId());
-        afiliacionesBodega.getAfiliacionesBodegaPK().setEmpresaKey(afiliacionesBodega.getEmpresaBodega().getEmpresaKey());
         EntityManager em = null;
         try {
             em = getEntityManager();

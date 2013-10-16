@@ -42,6 +42,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Dates.findByYear", query = "SELECT d FROM Dates d WHERE d.year = :year"),
     @NamedQuery(name = "Dates.findByWeekStartingMonday", query = "SELECT d FROM Dates d WHERE d.weekStartingMonday = :weekStartingMonday")})
 public class Dates implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dates")
+    private List<AfiliacionesBodega> afiliacionesBodegaList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -84,8 +87,6 @@ public class Dates implements Serializable {
     private List<FormulasBodega> formulasBodegaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "dates")
     private List<PagosBodega> pagosBodegaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dates")
-    private List<AfiliacionesBodega> afiliacionesBodegaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "dates")
     private List<RetirosBodega> retirosBodegaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "dates")
@@ -229,15 +230,6 @@ public class Dates implements Serializable {
     }
 
     @XmlTransient
-    public List<AfiliacionesBodega> getAfiliacionesBodegaList() {
-        return afiliacionesBodegaList;
-    }
-
-    public void setAfiliacionesBodegaList(List<AfiliacionesBodega> afiliacionesBodegaList) {
-        this.afiliacionesBodegaList = afiliacionesBodegaList;
-    }
-
-    @XmlTransient
     public List<RetirosBodega> getRetirosBodegaList() {
         return retirosBodegaList;
     }
@@ -288,5 +280,13 @@ public class Dates implements Serializable {
     public String toString() {
         return "Entidades_Bodega.Dates[ dateId=" + dateId + " ]";
     }
-    
+
+    @XmlTransient
+    public List<AfiliacionesBodega> getAfiliacionesBodegaList() {
+        return afiliacionesBodegaList;
+    }
+
+    public void setAfiliacionesBodegaList(List<AfiliacionesBodega> afiliacionesBodegaList) {
+        this.afiliacionesBodegaList = afiliacionesBodegaList;
+    }
 }

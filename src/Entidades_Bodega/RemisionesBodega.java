@@ -24,10 +24,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "RemisionesBodega.findAll", query = "SELECT r FROM RemisionesBodega r"),
-    @NamedQuery(name = "RemisionesBodega.findByMedicoKey", query = "SELECT r FROM RemisionesBodega r WHERE r.remisionesBodegaPK.medicoKey = :medicoKey"),
+    @NamedQuery(name = "RemisionesBodega.findByMedicoAtiendeKey", query = "SELECT r FROM RemisionesBodega r WHERE r.remisionesBodegaPK.medicoAtiendeKey = :medicoAtiendeKey"),
+    @NamedQuery(name = "RemisionesBodega.findByMedicoRemitenteKey", query = "SELECT r FROM RemisionesBodega r WHERE r.remisionesBodegaPK.medicoRemitenteKey = :medicoRemitenteKey"),
     @NamedQuery(name = "RemisionesBodega.findByPacienteKey", query = "SELECT r FROM RemisionesBodega r WHERE r.remisionesBodegaPK.pacienteKey = :pacienteKey"),
     @NamedQuery(name = "RemisionesBodega.findByDemografiaPacienteKey", query = "SELECT r FROM RemisionesBodega r WHERE r.remisionesBodegaPK.demografiaPacienteKey = :demografiaPacienteKey"),
-    @NamedQuery(name = "RemisionesBodega.findByFechaKey", query = "SELECT r FROM RemisionesBodega r WHERE r.remisionesBodegaPK.fechaKey = :fechaKey"),
+    @NamedQuery(name = "RemisionesBodega.findByFechaRemisionKey", query = "SELECT r FROM RemisionesBodega r WHERE r.remisionesBodegaPK.fechaRemisionKey = :fechaRemisionKey"),
+    @NamedQuery(name = "RemisionesBodega.findByFechaAtencionKey", query = "SELECT r FROM RemisionesBodega r WHERE r.remisionesBodegaPK.fechaAtencionKey = :fechaAtencionKey"),
     @NamedQuery(name = "RemisionesBodega.findByDiagnosticoKey", query = "SELECT r FROM RemisionesBodega r WHERE r.remisionesBodegaPK.diagnosticoKey = :diagnosticoKey"),
     @NamedQuery(name = "RemisionesBodega.findByPreexistenciaKey", query = "SELECT r FROM RemisionesBodega r WHERE r.remisionesBodegaPK.preexistenciaKey = :preexistenciaKey"),
     @NamedQuery(name = "RemisionesBodega.findByServicioPosKey", query = "SELECT r FROM RemisionesBodega r WHERE r.remisionesBodegaPK.servicioPosKey = :servicioPosKey"),
@@ -51,18 +53,24 @@ public class RemisionesBodega implements Serializable {
     @JoinColumn(name = "diagnostico_key", referencedColumnName = "diagnostico_key", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private DiagnosticoBodega diagnosticoBodega;
-    @JoinColumn(name = "fecha_key", referencedColumnName = "date_id", insertable = false, updatable = false)
+    @JoinColumn(name = "fecha_atencion_key", referencedColumnName = "date_id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Dates dates;
+    @JoinColumn(name = "fecha_remision_key", referencedColumnName = "date_id", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Dates dates1;
     @JoinColumn(name = "demografia_paciente_key", referencedColumnName = "demografia_paciente_key", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private DemografiaPacienteBodega demografiaPacienteBodega;
     @JoinColumn(name = "paciente_key", referencedColumnName = "paciente_key", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private PacienteBodega pacienteBodega;
-    @JoinColumn(name = "medico_key", referencedColumnName = "medico_key", insertable = false, updatable = false)
+    @JoinColumn(name = "medico_remitente_key", referencedColumnName = "medico_key", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private MedicoBodega medicoBodega;
+    @JoinColumn(name = "medico_atiende_key", referencedColumnName = "medico_key", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private MedicoBodega medicoBodega1;
 
     public RemisionesBodega() {
     }
@@ -71,8 +79,8 @@ public class RemisionesBodega implements Serializable {
         this.remisionesBodegaPK = remisionesBodegaPK;
     }
 
-    public RemisionesBodega(int medicoKey, int pacienteKey, int demografiaPacienteKey, long fechaKey, int diagnosticoKey, int preexistenciaKey, int servicioPosKey, int ipsKey) {
-        this.remisionesBodegaPK = new RemisionesBodegaPK(medicoKey, pacienteKey, demografiaPacienteKey, fechaKey, diagnosticoKey, preexistenciaKey, servicioPosKey, ipsKey);
+    public RemisionesBodega(int medicoAtiendeKey, int medicoRemitenteKey, int pacienteKey, int demografiaPacienteKey, long fechaRemisionKey, long fechaAtencionKey, int diagnosticoKey, int preexistenciaKey, int servicioPosKey, int ipsKey) {
+        this.remisionesBodegaPK = new RemisionesBodegaPK(medicoAtiendeKey, medicoRemitenteKey, pacienteKey, demografiaPacienteKey, fechaRemisionKey, fechaAtencionKey, diagnosticoKey, preexistenciaKey, servicioPosKey, ipsKey);
     }
 
     public RemisionesBodegaPK getRemisionesBodegaPK() {
@@ -131,6 +139,14 @@ public class RemisionesBodega implements Serializable {
         this.dates = dates;
     }
 
+    public Dates getDates1() {
+        return dates1;
+    }
+
+    public void setDates1(Dates dates1) {
+        this.dates1 = dates1;
+    }
+
     public DemografiaPacienteBodega getDemografiaPacienteBodega() {
         return demografiaPacienteBodega;
     }
@@ -153,6 +169,14 @@ public class RemisionesBodega implements Serializable {
 
     public void setMedicoBodega(MedicoBodega medicoBodega) {
         this.medicoBodega = medicoBodega;
+    }
+
+    public MedicoBodega getMedicoBodega1() {
+        return medicoBodega1;
+    }
+
+    public void setMedicoBodega1(MedicoBodega medicoBodega1) {
+        this.medicoBodega1 = medicoBodega1;
     }
 
     @Override

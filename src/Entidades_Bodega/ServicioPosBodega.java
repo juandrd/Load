@@ -5,14 +5,18 @@
 package Entidades_Bodega;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,6 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ServicioPosBodega.findByDescripcion", query = "SELECT s FROM ServicioPosBodega s WHERE s.descripcion = :descripcion"),
     @NamedQuery(name = "ServicioPosBodega.findByCosto", query = "SELECT s FROM ServicioPosBodega s WHERE s.costo = :costo")})
 public class ServicioPosBodega implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "servicioPosBodega")
+    private List<RemisionesBodega> remisionesBodegaList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -102,6 +108,15 @@ public class ServicioPosBodega implements Serializable {
     @Override
     public String toString() {
         return "Entidades_Bodega.ServicioPosBodega[ servicioPosKey=" + servicioPosKey + " ]";
+    }
+
+    @XmlTransient
+    public List<RemisionesBodega> getRemisionesBodegaList() {
+        return remisionesBodegaList;
+    }
+
+    public void setRemisionesBodegaList(List<RemisionesBodega> remisionesBodegaList) {
+        this.remisionesBodegaList = remisionesBodegaList;
     }
     
 }

@@ -36,6 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "IpsBodega.findByDireccion", query = "SELECT i FROM IpsBodega i WHERE i.direccion = :direccion"),
     @NamedQuery(name = "IpsBodega.findByMunicipio", query = "SELECT i FROM IpsBodega i WHERE i.municipio = :municipio")})
 public class IpsBodega implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ipsBodega")
+    private List<AfiliacionesBodega> afiliacionesBodegaList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -53,8 +55,7 @@ public class IpsBodega implements Serializable {
     private String municipio;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ipsBodega")
     private List<CitasBodega> citasBodegaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ipsBodega")
-    private List<AfiliacionesBodega> afiliacionesBodegaList;
+  
     @JoinColumn(name = "departamento", referencedColumnName = "cod_dpto")
     @ManyToOne
     private DepartamentoBodega departamento;
@@ -127,15 +128,8 @@ public class IpsBodega implements Serializable {
         this.citasBodegaList = citasBodegaList;
     }
 
-    @XmlTransient
-    public List<AfiliacionesBodega> getAfiliacionesBodegaList() {
-        return afiliacionesBodegaList;
-    }
-
-    public void setAfiliacionesBodegaList(List<AfiliacionesBodega> afiliacionesBodegaList) {
-        this.afiliacionesBodegaList = afiliacionesBodegaList;
-    }
-
+    
+    
     public DepartamentoBodega getDepartamento() {
         return departamento;
     }
@@ -185,6 +179,15 @@ public class IpsBodega implements Serializable {
     @Override
     public String toString() {
         return "Entidades_Bodega.IpsBodega[ ipsKey=" + ipsKey + " ]";
+    }
+
+    @XmlTransient
+    public List<AfiliacionesBodega> getAfiliacionesBodegaList() {
+        return afiliacionesBodegaList;
+    }
+
+    public void setAfiliacionesBodegaList(List<AfiliacionesBodega> afiliacionesBodegaList) {
+        this.afiliacionesBodegaList = afiliacionesBodegaList;
     }
     
 }

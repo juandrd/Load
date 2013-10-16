@@ -15,9 +15,9 @@ import javax.persistence.criteria.Root;
 import Entidades_Bodega.PagosBodega;
 import java.util.ArrayList;
 import java.util.List;
+import Entidades_Bodega.UrgenciasBodega;
 import Entidades_Bodega.AfiliacionesBodega;
 import Entidades_Bodega.EmpresaBodega;
-import Entidades_Bodega.UrgenciasBodega;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -40,11 +40,11 @@ public class EmpresaBodegaJpaController implements Serializable {
         if (empresaBodega.getPagosBodegaList() == null) {
             empresaBodega.setPagosBodegaList(new ArrayList<PagosBodega>());
         }
-        if (empresaBodega.getAfiliacionesBodegaList() == null) {
-            empresaBodega.setAfiliacionesBodegaList(new ArrayList<AfiliacionesBodega>());
-        }
         if (empresaBodega.getUrgenciasBodegaList() == null) {
             empresaBodega.setUrgenciasBodegaList(new ArrayList<UrgenciasBodega>());
+        }
+        if (empresaBodega.getAfiliacionesBodegaList() == null) {
+            empresaBodega.setAfiliacionesBodegaList(new ArrayList<AfiliacionesBodega>());
         }
         EntityManager em = null;
         try {
@@ -56,18 +56,18 @@ public class EmpresaBodegaJpaController implements Serializable {
                 attachedPagosBodegaList.add(pagosBodegaListPagosBodegaToAttach);
             }
             empresaBodega.setPagosBodegaList(attachedPagosBodegaList);
-            List<AfiliacionesBodega> attachedAfiliacionesBodegaList = new ArrayList<AfiliacionesBodega>();
-            for (AfiliacionesBodega afiliacionesBodegaListAfiliacionesBodegaToAttach : empresaBodega.getAfiliacionesBodegaList()) {
-                afiliacionesBodegaListAfiliacionesBodegaToAttach = em.getReference(afiliacionesBodegaListAfiliacionesBodegaToAttach.getClass(), afiliacionesBodegaListAfiliacionesBodegaToAttach.getAfiliacionesBodegaPK());
-                attachedAfiliacionesBodegaList.add(afiliacionesBodegaListAfiliacionesBodegaToAttach);
-            }
-            empresaBodega.setAfiliacionesBodegaList(attachedAfiliacionesBodegaList);
             List<UrgenciasBodega> attachedUrgenciasBodegaList = new ArrayList<UrgenciasBodega>();
             for (UrgenciasBodega urgenciasBodegaListUrgenciasBodegaToAttach : empresaBodega.getUrgenciasBodegaList()) {
                 urgenciasBodegaListUrgenciasBodegaToAttach = em.getReference(urgenciasBodegaListUrgenciasBodegaToAttach.getClass(), urgenciasBodegaListUrgenciasBodegaToAttach.getUrgenciasBodegaPK());
                 attachedUrgenciasBodegaList.add(urgenciasBodegaListUrgenciasBodegaToAttach);
             }
             empresaBodega.setUrgenciasBodegaList(attachedUrgenciasBodegaList);
+            List<AfiliacionesBodega> attachedAfiliacionesBodegaList = new ArrayList<AfiliacionesBodega>();
+            for (AfiliacionesBodega afiliacionesBodegaListAfiliacionesBodegaToAttach : empresaBodega.getAfiliacionesBodegaList()) {
+                afiliacionesBodegaListAfiliacionesBodegaToAttach = em.getReference(afiliacionesBodegaListAfiliacionesBodegaToAttach.getClass(), afiliacionesBodegaListAfiliacionesBodegaToAttach.getAfiliacionesBodegaPK());
+                attachedAfiliacionesBodegaList.add(afiliacionesBodegaListAfiliacionesBodegaToAttach);
+            }
+            empresaBodega.setAfiliacionesBodegaList(attachedAfiliacionesBodegaList);
             em.persist(empresaBodega);
             for (PagosBodega pagosBodegaListPagosBodega : empresaBodega.getPagosBodegaList()) {
                 EmpresaBodega oldEmpresaBodegaOfPagosBodegaListPagosBodega = pagosBodegaListPagosBodega.getEmpresaBodega();
@@ -78,15 +78,6 @@ public class EmpresaBodegaJpaController implements Serializable {
                     oldEmpresaBodegaOfPagosBodegaListPagosBodega = em.merge(oldEmpresaBodegaOfPagosBodegaListPagosBodega);
                 }
             }
-            for (AfiliacionesBodega afiliacionesBodegaListAfiliacionesBodega : empresaBodega.getAfiliacionesBodegaList()) {
-                EmpresaBodega oldEmpresaBodegaOfAfiliacionesBodegaListAfiliacionesBodega = afiliacionesBodegaListAfiliacionesBodega.getEmpresaBodega();
-                afiliacionesBodegaListAfiliacionesBodega.setEmpresaBodega(empresaBodega);
-                afiliacionesBodegaListAfiliacionesBodega = em.merge(afiliacionesBodegaListAfiliacionesBodega);
-                if (oldEmpresaBodegaOfAfiliacionesBodegaListAfiliacionesBodega != null) {
-                    oldEmpresaBodegaOfAfiliacionesBodegaListAfiliacionesBodega.getAfiliacionesBodegaList().remove(afiliacionesBodegaListAfiliacionesBodega);
-                    oldEmpresaBodegaOfAfiliacionesBodegaListAfiliacionesBodega = em.merge(oldEmpresaBodegaOfAfiliacionesBodegaListAfiliacionesBodega);
-                }
-            }
             for (UrgenciasBodega urgenciasBodegaListUrgenciasBodega : empresaBodega.getUrgenciasBodegaList()) {
                 EmpresaBodega oldEmpresaBodegaOfUrgenciasBodegaListUrgenciasBodega = urgenciasBodegaListUrgenciasBodega.getEmpresaBodega();
                 urgenciasBodegaListUrgenciasBodega.setEmpresaBodega(empresaBodega);
@@ -94,6 +85,15 @@ public class EmpresaBodegaJpaController implements Serializable {
                 if (oldEmpresaBodegaOfUrgenciasBodegaListUrgenciasBodega != null) {
                     oldEmpresaBodegaOfUrgenciasBodegaListUrgenciasBodega.getUrgenciasBodegaList().remove(urgenciasBodegaListUrgenciasBodega);
                     oldEmpresaBodegaOfUrgenciasBodegaListUrgenciasBodega = em.merge(oldEmpresaBodegaOfUrgenciasBodegaListUrgenciasBodega);
+                }
+            }
+            for (AfiliacionesBodega afiliacionesBodegaListAfiliacionesBodega : empresaBodega.getAfiliacionesBodegaList()) {
+                EmpresaBodega oldEmpresaBodegaOfAfiliacionesBodegaListAfiliacionesBodega = afiliacionesBodegaListAfiliacionesBodega.getEmpresaBodega();
+                afiliacionesBodegaListAfiliacionesBodega.setEmpresaBodega(empresaBodega);
+                afiliacionesBodegaListAfiliacionesBodega = em.merge(afiliacionesBodegaListAfiliacionesBodega);
+                if (oldEmpresaBodegaOfAfiliacionesBodegaListAfiliacionesBodega != null) {
+                    oldEmpresaBodegaOfAfiliacionesBodegaListAfiliacionesBodega.getAfiliacionesBodegaList().remove(afiliacionesBodegaListAfiliacionesBodega);
+                    oldEmpresaBodegaOfAfiliacionesBodegaListAfiliacionesBodega = em.merge(oldEmpresaBodegaOfAfiliacionesBodegaListAfiliacionesBodega);
                 }
             }
             em.getTransaction().commit();
@@ -117,10 +117,10 @@ public class EmpresaBodegaJpaController implements Serializable {
             EmpresaBodega persistentEmpresaBodega = em.find(EmpresaBodega.class, empresaBodega.getEmpresaKey());
             List<PagosBodega> pagosBodegaListOld = persistentEmpresaBodega.getPagosBodegaList();
             List<PagosBodega> pagosBodegaListNew = empresaBodega.getPagosBodegaList();
-            List<AfiliacionesBodega> afiliacionesBodegaListOld = persistentEmpresaBodega.getAfiliacionesBodegaList();
-            List<AfiliacionesBodega> afiliacionesBodegaListNew = empresaBodega.getAfiliacionesBodegaList();
             List<UrgenciasBodega> urgenciasBodegaListOld = persistentEmpresaBodega.getUrgenciasBodegaList();
             List<UrgenciasBodega> urgenciasBodegaListNew = empresaBodega.getUrgenciasBodegaList();
+            List<AfiliacionesBodega> afiliacionesBodegaListOld = persistentEmpresaBodega.getAfiliacionesBodegaList();
+            List<AfiliacionesBodega> afiliacionesBodegaListNew = empresaBodega.getAfiliacionesBodegaList();
             List<String> illegalOrphanMessages = null;
             for (PagosBodega pagosBodegaListOldPagosBodega : pagosBodegaListOld) {
                 if (!pagosBodegaListNew.contains(pagosBodegaListOldPagosBodega)) {
@@ -130,20 +130,20 @@ public class EmpresaBodegaJpaController implements Serializable {
                     illegalOrphanMessages.add("You must retain PagosBodega " + pagosBodegaListOldPagosBodega + " since its empresaBodega field is not nullable.");
                 }
             }
-            for (AfiliacionesBodega afiliacionesBodegaListOldAfiliacionesBodega : afiliacionesBodegaListOld) {
-                if (!afiliacionesBodegaListNew.contains(afiliacionesBodegaListOldAfiliacionesBodega)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain AfiliacionesBodega " + afiliacionesBodegaListOldAfiliacionesBodega + " since its empresaBodega field is not nullable.");
-                }
-            }
             for (UrgenciasBodega urgenciasBodegaListOldUrgenciasBodega : urgenciasBodegaListOld) {
                 if (!urgenciasBodegaListNew.contains(urgenciasBodegaListOldUrgenciasBodega)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
                     illegalOrphanMessages.add("You must retain UrgenciasBodega " + urgenciasBodegaListOldUrgenciasBodega + " since its empresaBodega field is not nullable.");
+                }
+            }
+            for (AfiliacionesBodega afiliacionesBodegaListOldAfiliacionesBodega : afiliacionesBodegaListOld) {
+                if (!afiliacionesBodegaListNew.contains(afiliacionesBodegaListOldAfiliacionesBodega)) {
+                    if (illegalOrphanMessages == null) {
+                        illegalOrphanMessages = new ArrayList<String>();
+                    }
+                    illegalOrphanMessages.add("You must retain AfiliacionesBodega " + afiliacionesBodegaListOldAfiliacionesBodega + " since its empresaBodega field is not nullable.");
                 }
             }
             if (illegalOrphanMessages != null) {
@@ -156,13 +156,6 @@ public class EmpresaBodegaJpaController implements Serializable {
             }
             pagosBodegaListNew = attachedPagosBodegaListNew;
             empresaBodega.setPagosBodegaList(pagosBodegaListNew);
-            List<AfiliacionesBodega> attachedAfiliacionesBodegaListNew = new ArrayList<AfiliacionesBodega>();
-            for (AfiliacionesBodega afiliacionesBodegaListNewAfiliacionesBodegaToAttach : afiliacionesBodegaListNew) {
-                afiliacionesBodegaListNewAfiliacionesBodegaToAttach = em.getReference(afiliacionesBodegaListNewAfiliacionesBodegaToAttach.getClass(), afiliacionesBodegaListNewAfiliacionesBodegaToAttach.getAfiliacionesBodegaPK());
-                attachedAfiliacionesBodegaListNew.add(afiliacionesBodegaListNewAfiliacionesBodegaToAttach);
-            }
-            afiliacionesBodegaListNew = attachedAfiliacionesBodegaListNew;
-            empresaBodega.setAfiliacionesBodegaList(afiliacionesBodegaListNew);
             List<UrgenciasBodega> attachedUrgenciasBodegaListNew = new ArrayList<UrgenciasBodega>();
             for (UrgenciasBodega urgenciasBodegaListNewUrgenciasBodegaToAttach : urgenciasBodegaListNew) {
                 urgenciasBodegaListNewUrgenciasBodegaToAttach = em.getReference(urgenciasBodegaListNewUrgenciasBodegaToAttach.getClass(), urgenciasBodegaListNewUrgenciasBodegaToAttach.getUrgenciasBodegaPK());
@@ -170,6 +163,13 @@ public class EmpresaBodegaJpaController implements Serializable {
             }
             urgenciasBodegaListNew = attachedUrgenciasBodegaListNew;
             empresaBodega.setUrgenciasBodegaList(urgenciasBodegaListNew);
+            List<AfiliacionesBodega> attachedAfiliacionesBodegaListNew = new ArrayList<AfiliacionesBodega>();
+            for (AfiliacionesBodega afiliacionesBodegaListNewAfiliacionesBodegaToAttach : afiliacionesBodegaListNew) {
+                afiliacionesBodegaListNewAfiliacionesBodegaToAttach = em.getReference(afiliacionesBodegaListNewAfiliacionesBodegaToAttach.getClass(), afiliacionesBodegaListNewAfiliacionesBodegaToAttach.getAfiliacionesBodegaPK());
+                attachedAfiliacionesBodegaListNew.add(afiliacionesBodegaListNewAfiliacionesBodegaToAttach);
+            }
+            afiliacionesBodegaListNew = attachedAfiliacionesBodegaListNew;
+            empresaBodega.setAfiliacionesBodegaList(afiliacionesBodegaListNew);
             empresaBodega = em.merge(empresaBodega);
             for (PagosBodega pagosBodegaListNewPagosBodega : pagosBodegaListNew) {
                 if (!pagosBodegaListOld.contains(pagosBodegaListNewPagosBodega)) {
@@ -182,17 +182,6 @@ public class EmpresaBodegaJpaController implements Serializable {
                     }
                 }
             }
-            for (AfiliacionesBodega afiliacionesBodegaListNewAfiliacionesBodega : afiliacionesBodegaListNew) {
-                if (!afiliacionesBodegaListOld.contains(afiliacionesBodegaListNewAfiliacionesBodega)) {
-                    EmpresaBodega oldEmpresaBodegaOfAfiliacionesBodegaListNewAfiliacionesBodega = afiliacionesBodegaListNewAfiliacionesBodega.getEmpresaBodega();
-                    afiliacionesBodegaListNewAfiliacionesBodega.setEmpresaBodega(empresaBodega);
-                    afiliacionesBodegaListNewAfiliacionesBodega = em.merge(afiliacionesBodegaListNewAfiliacionesBodega);
-                    if (oldEmpresaBodegaOfAfiliacionesBodegaListNewAfiliacionesBodega != null && !oldEmpresaBodegaOfAfiliacionesBodegaListNewAfiliacionesBodega.equals(empresaBodega)) {
-                        oldEmpresaBodegaOfAfiliacionesBodegaListNewAfiliacionesBodega.getAfiliacionesBodegaList().remove(afiliacionesBodegaListNewAfiliacionesBodega);
-                        oldEmpresaBodegaOfAfiliacionesBodegaListNewAfiliacionesBodega = em.merge(oldEmpresaBodegaOfAfiliacionesBodegaListNewAfiliacionesBodega);
-                    }
-                }
-            }
             for (UrgenciasBodega urgenciasBodegaListNewUrgenciasBodega : urgenciasBodegaListNew) {
                 if (!urgenciasBodegaListOld.contains(urgenciasBodegaListNewUrgenciasBodega)) {
                     EmpresaBodega oldEmpresaBodegaOfUrgenciasBodegaListNewUrgenciasBodega = urgenciasBodegaListNewUrgenciasBodega.getEmpresaBodega();
@@ -201,6 +190,17 @@ public class EmpresaBodegaJpaController implements Serializable {
                     if (oldEmpresaBodegaOfUrgenciasBodegaListNewUrgenciasBodega != null && !oldEmpresaBodegaOfUrgenciasBodegaListNewUrgenciasBodega.equals(empresaBodega)) {
                         oldEmpresaBodegaOfUrgenciasBodegaListNewUrgenciasBodega.getUrgenciasBodegaList().remove(urgenciasBodegaListNewUrgenciasBodega);
                         oldEmpresaBodegaOfUrgenciasBodegaListNewUrgenciasBodega = em.merge(oldEmpresaBodegaOfUrgenciasBodegaListNewUrgenciasBodega);
+                    }
+                }
+            }
+            for (AfiliacionesBodega afiliacionesBodegaListNewAfiliacionesBodega : afiliacionesBodegaListNew) {
+                if (!afiliacionesBodegaListOld.contains(afiliacionesBodegaListNewAfiliacionesBodega)) {
+                    EmpresaBodega oldEmpresaBodegaOfAfiliacionesBodegaListNewAfiliacionesBodega = afiliacionesBodegaListNewAfiliacionesBodega.getEmpresaBodega();
+                    afiliacionesBodegaListNewAfiliacionesBodega.setEmpresaBodega(empresaBodega);
+                    afiliacionesBodegaListNewAfiliacionesBodega = em.merge(afiliacionesBodegaListNewAfiliacionesBodega);
+                    if (oldEmpresaBodegaOfAfiliacionesBodegaListNewAfiliacionesBodega != null && !oldEmpresaBodegaOfAfiliacionesBodegaListNewAfiliacionesBodega.equals(empresaBodega)) {
+                        oldEmpresaBodegaOfAfiliacionesBodegaListNewAfiliacionesBodega.getAfiliacionesBodegaList().remove(afiliacionesBodegaListNewAfiliacionesBodega);
+                        oldEmpresaBodegaOfAfiliacionesBodegaListNewAfiliacionesBodega = em.merge(oldEmpresaBodegaOfAfiliacionesBodegaListNewAfiliacionesBodega);
                     }
                 }
             }
@@ -241,19 +241,19 @@ public class EmpresaBodegaJpaController implements Serializable {
                 }
                 illegalOrphanMessages.add("This EmpresaBodega (" + empresaBodega + ") cannot be destroyed since the PagosBodega " + pagosBodegaListOrphanCheckPagosBodega + " in its pagosBodegaList field has a non-nullable empresaBodega field.");
             }
-            List<AfiliacionesBodega> afiliacionesBodegaListOrphanCheck = empresaBodega.getAfiliacionesBodegaList();
-            for (AfiliacionesBodega afiliacionesBodegaListOrphanCheckAfiliacionesBodega : afiliacionesBodegaListOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This EmpresaBodega (" + empresaBodega + ") cannot be destroyed since the AfiliacionesBodega " + afiliacionesBodegaListOrphanCheckAfiliacionesBodega + " in its afiliacionesBodegaList field has a non-nullable empresaBodega field.");
-            }
             List<UrgenciasBodega> urgenciasBodegaListOrphanCheck = empresaBodega.getUrgenciasBodegaList();
             for (UrgenciasBodega urgenciasBodegaListOrphanCheckUrgenciasBodega : urgenciasBodegaListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
                 illegalOrphanMessages.add("This EmpresaBodega (" + empresaBodega + ") cannot be destroyed since the UrgenciasBodega " + urgenciasBodegaListOrphanCheckUrgenciasBodega + " in its urgenciasBodegaList field has a non-nullable empresaBodega field.");
+            }
+            List<AfiliacionesBodega> afiliacionesBodegaListOrphanCheck = empresaBodega.getAfiliacionesBodegaList();
+            for (AfiliacionesBodega afiliacionesBodegaListOrphanCheckAfiliacionesBodega : afiliacionesBodegaListOrphanCheck) {
+                if (illegalOrphanMessages == null) {
+                    illegalOrphanMessages = new ArrayList<String>();
+                }
+                illegalOrphanMessages.add("This EmpresaBodega (" + empresaBodega + ") cannot be destroyed since the AfiliacionesBodega " + afiliacionesBodegaListOrphanCheckAfiliacionesBodega + " in its afiliacionesBodegaList field has a non-nullable empresaBodega field.");
             }
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
@@ -312,7 +312,6 @@ public class EmpresaBodegaJpaController implements Serializable {
             em.close();
         }
     }
-    
       public EmpresaBodega consultar(String f) {
           
           
@@ -332,5 +331,4 @@ public class EmpresaBodegaJpaController implements Serializable {
 
         return empresa;
     }
-    
 }
