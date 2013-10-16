@@ -29,16 +29,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "FormulasBodega.findByFechaKey", query = "SELECT f FROM FormulasBodega f WHERE f.formulasBodegaPK.fechaKey = :fechaKey"),
     @NamedQuery(name = "FormulasBodega.findByMedicoKey", query = "SELECT f FROM FormulasBodega f WHERE f.formulasBodegaPK.medicoKey = :medicoKey"),
     @NamedQuery(name = "FormulasBodega.findByMedicamentoKey", query = "SELECT f FROM FormulasBodega f WHERE f.formulasBodegaPK.medicamentoKey = :medicamentoKey"),
-    @NamedQuery(name = "FormulasBodega.findByCostoReceta", query = "SELECT f FROM FormulasBodega f WHERE f.costoReceta = :costoReceta"),
-    @NamedQuery(name = "FormulasBodega.findByNroMedicamentos", query = "SELECT f FROM FormulasBodega f WHERE f.nroMedicamentos = :nroMedicamentos")})
+    @NamedQuery(name = "FormulasBodega.findByCodFormula", query = "SELECT f FROM FormulasBodega f WHERE f.formulasBodegaPK.codFormula = :codFormula"),
+    @NamedQuery(name = "FormulasBodega.findByCostoMedicamento", query = "SELECT f FROM FormulasBodega f WHERE f.costoMedicamento = :costoMedicamento")})
 public class FormulasBodega implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected FormulasBodegaPK formulasBodegaPK;
-    @Column(name = "costo_receta")
-    private Integer costoReceta;
-    @Column(name = "nro_medicamentos")
-    private Integer nroMedicamentos;
+    @Column(name = "costo_medicamento")
+    private Integer costoMedicamento;
     @JoinColumn(name = "medicamento_key", referencedColumnName = "medicamento_key", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private MedicamentoBodega medicamentoBodega;
@@ -62,8 +60,8 @@ public class FormulasBodega implements Serializable {
         this.formulasBodegaPK = formulasBodegaPK;
     }
 
-    public FormulasBodega(int pacienteKey, int demografiaPacienteKey, long fechaKey, int medicoKey, int medicamentoKey) {
-        this.formulasBodegaPK = new FormulasBodegaPK(pacienteKey, demografiaPacienteKey, fechaKey, medicoKey, medicamentoKey);
+    public FormulasBodega(int pacienteKey, int demografiaPacienteKey, long fechaKey, int medicoKey, int medicamentoKey, String codFormula) {
+        this.formulasBodegaPK = new FormulasBodegaPK(pacienteKey, demografiaPacienteKey, fechaKey, medicoKey, medicamentoKey, codFormula);
     }
 
     public FormulasBodegaPK getFormulasBodegaPK() {
@@ -74,20 +72,12 @@ public class FormulasBodega implements Serializable {
         this.formulasBodegaPK = formulasBodegaPK;
     }
 
-    public Integer getCostoReceta() {
-        return costoReceta;
+    public Integer getCostoMedicamento() {
+        return costoMedicamento;
     }
 
-    public void setCostoReceta(Integer costoReceta) {
-        this.costoReceta = costoReceta;
-    }
-
-    public Integer getNroMedicamentos() {
-        return nroMedicamentos;
-    }
-
-    public void setNroMedicamentos(Integer nroMedicamentos) {
-        this.nroMedicamentos = nroMedicamentos;
+    public void setCostoMedicamento(Integer costoMedicamento) {
+        this.costoMedicamento = costoMedicamento;
     }
 
     public MedicamentoBodega getMedicamentoBodega() {

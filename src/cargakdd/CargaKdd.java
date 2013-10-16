@@ -93,15 +93,15 @@ public class CargaKdd {
         
 //           //-------------------------------
         
-         //Carga Retiros
-        RetirosCarga retiro = new RetirosCarga();
-        try {
-            retiro.carga();
-        } catch (PreexistingEntityException ex) {
-            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//         //Carga Retiros
+//        RetirosCarga retiro = new RetirosCarga();
+//        try {
+//            retiro.carga();
+//        } catch (PreexistingEntityException ex) {
+//            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (Exception ex) {
+//            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 //        
         
 //                 //-------------------------------
@@ -175,5 +175,18 @@ public class CargaKdd {
 //        } catch (Exception ex) {
 //            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
 //        }
+        
+        
+                                              //    -------------------------------        
+         //Carga Formulas
+        FormulasCarga formula = new FormulasCarga();
+        try {
+            formula.carga();
+        } 
+        catch (PreexistingEntityException ex) {
+            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+        }
    }
 }

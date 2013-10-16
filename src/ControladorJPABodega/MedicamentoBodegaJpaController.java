@@ -204,5 +204,23 @@ public class MedicamentoBodegaJpaController implements Serializable {
             em.close();
         }
     }
-    
+      public MedicamentoBodega consultar(String f) {          
+          
+         MedicamentoBodega m=new MedicamentoBodega();
+         List lista;
+         lista=findMedicamentoBodegaEntities();
+         
+          for (int i = 0; i < lista.size(); i++) {
+              MedicamentoBodega medicamento=(MedicamentoBodega) lista.get(i);             
+              
+             
+              if(medicamento.getCodigoMedicamento().toString().equalsIgnoreCase(f)){                  
+                  m=medicamento;
+                 // System.out.println(m);
+                  break;
+              }
+          }
+
+        return m;
+    }
 }

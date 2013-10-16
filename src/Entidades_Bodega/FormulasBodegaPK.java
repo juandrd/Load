@@ -30,16 +30,20 @@ public class FormulasBodegaPK implements Serializable {
     @Basic(optional = false)
     @Column(name = "medicamento_key")
     private int medicamentoKey;
+    @Basic(optional = false)
+    @Column(name = "cod_formula")
+    private String codFormula;
 
     public FormulasBodegaPK() {
     }
 
-    public FormulasBodegaPK(int pacienteKey, int demografiaPacienteKey, long fechaKey, int medicoKey, int medicamentoKey) {
+    public FormulasBodegaPK(int pacienteKey, int demografiaPacienteKey, long fechaKey, int medicoKey, int medicamentoKey, String codFormula) {
         this.pacienteKey = pacienteKey;
         this.demografiaPacienteKey = demografiaPacienteKey;
         this.fechaKey = fechaKey;
         this.medicoKey = medicoKey;
         this.medicamentoKey = medicamentoKey;
+        this.codFormula = codFormula;
     }
 
     public int getPacienteKey() {
@@ -82,6 +86,14 @@ public class FormulasBodegaPK implements Serializable {
         this.medicamentoKey = medicamentoKey;
     }
 
+    public String getCodFormula() {
+        return codFormula;
+    }
+
+    public void setCodFormula(String codFormula) {
+        this.codFormula = codFormula;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -90,6 +102,7 @@ public class FormulasBodegaPK implements Serializable {
         hash += (int) fechaKey;
         hash += (int) medicoKey;
         hash += (int) medicamentoKey;
+        hash += (codFormula != null ? codFormula.hashCode() : 0);
         return hash;
     }
 
@@ -115,12 +128,15 @@ public class FormulasBodegaPK implements Serializable {
         if (this.medicamentoKey != other.medicamentoKey) {
             return false;
         }
+        if ((this.codFormula == null && other.codFormula != null) || (this.codFormula != null && !this.codFormula.equals(other.codFormula))) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Entidades_Bodega.FormulasBodegaPK[ pacienteKey=" + pacienteKey + ", demografiaPacienteKey=" + demografiaPacienteKey + ", fechaKey=" + fechaKey + ", medicoKey=" + medicoKey + ", medicamentoKey=" + medicamentoKey + " ]";
+        return "Entidades_Bodega.FormulasBodegaPK[ pacienteKey=" + pacienteKey + ", demografiaPacienteKey=" + demografiaPacienteKey + ", fechaKey=" + fechaKey + ", medicoKey=" + medicoKey + ", medicamentoKey=" + medicamentoKey + ", codFormula=" + codFormula + " ]";
     }
     
 }

@@ -41,11 +41,11 @@ public class FormulasBodegaJpaController implements Serializable {
         if (formulasBodega.getFormulasBodegaPK() == null) {
             formulasBodega.setFormulasBodegaPK(new FormulasBodegaPK());
         }
-        formulasBodega.getFormulasBodegaPK().setPacienteKey(formulasBodega.getPacienteBodega().getPacienteKey());
         formulasBodega.getFormulasBodegaPK().setMedicamentoKey(formulasBodega.getMedicamentoBodega().getMedicamentoKey());
         formulasBodega.getFormulasBodegaPK().setFechaKey(formulasBodega.getDates().getDateId());
-        formulasBodega.getFormulasBodegaPK().setDemografiaPacienteKey(formulasBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
         formulasBodega.getFormulasBodegaPK().setMedicoKey(formulasBodega.getMedicoBodega().getMedicoKey());
+        formulasBodega.getFormulasBodegaPK().setDemografiaPacienteKey(formulasBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
+        formulasBodega.getFormulasBodegaPK().setPacienteKey(formulasBodega.getPacienteBodega().getPacienteKey());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -110,11 +110,11 @@ public class FormulasBodegaJpaController implements Serializable {
     }
 
     public void edit(FormulasBodega formulasBodega) throws NonexistentEntityException, Exception {
-        formulasBodega.getFormulasBodegaPK().setPacienteKey(formulasBodega.getPacienteBodega().getPacienteKey());
         formulasBodega.getFormulasBodegaPK().setMedicamentoKey(formulasBodega.getMedicamentoBodega().getMedicamentoKey());
         formulasBodega.getFormulasBodegaPK().setFechaKey(formulasBodega.getDates().getDateId());
-        formulasBodega.getFormulasBodegaPK().setDemografiaPacienteKey(formulasBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
         formulasBodega.getFormulasBodegaPK().setMedicoKey(formulasBodega.getMedicoBodega().getMedicoKey());
+        formulasBodega.getFormulasBodegaPK().setDemografiaPacienteKey(formulasBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
+        formulasBodega.getFormulasBodegaPK().setPacienteKey(formulasBodega.getPacienteBodega().getPacienteKey());
         EntityManager em = null;
         try {
             em = getEntityManager();
