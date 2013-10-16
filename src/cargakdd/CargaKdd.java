@@ -140,12 +140,24 @@ public class CargaKdd {
 //        } catch (Exception ex) {
 //            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
 //        }
+//        
+//                            //    -------------------------------        
+//         //Carga Urgencia
+//        UrgenciasCarga urgencia = new UrgenciasCarga();
+//        try {
+//            urgencia.carga();
+//        } 
+//        catch (PreexistingEntityException ex) {
+//            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (Exception ex) {
+//            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
-                            //    -------------------------------        
+                                    //    -------------------------------        
          //Carga Urgencia
-        UrgenciasCarga urgencia = new UrgenciasCarga();
+        CitasCarga citas = new CitasCarga();
         try {
-            urgencia.carga();
+            citas.carga();
         } 
         catch (PreexistingEntityException ex) {
             Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);

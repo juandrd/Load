@@ -25,8 +25,11 @@ public class CitasBodegaPK implements Serializable {
     @Column(name = "demografia_paciente_key")
     private int demografiaPacienteKey;
     @Basic(optional = false)
-    @Column(name = "fecha_key")
-    private long fechaKey;
+    @Column(name = "fecha_solicitud_key")
+    private long fechaSolicitudKey;
+    @Basic(optional = false)
+    @Column(name = "fecha_atencion_key")
+    private long fechaAtencionKey;
     @Basic(optional = false)
     @Column(name = "diagnostico_key")
     private int diagnosticoKey;
@@ -34,23 +37,20 @@ public class CitasBodegaPK implements Serializable {
     @Column(name = "preexistencia_key")
     private int preexistenciaKey;
     @Basic(optional = false)
-    @Column(name = "servicio_pos_key")
-    private int servicioPosKey;
-    @Basic(optional = false)
     @Column(name = "ips_key")
     private int ipsKey;
 
     public CitasBodegaPK() {
     }
 
-    public CitasBodegaPK(int medicoKey, int pacienteKey, int demografiaPacienteKey, long fechaKey, int diagnosticoKey, int preexistenciaKey, int servicioPosKey, int ipsKey) {
+    public CitasBodegaPK(int medicoKey, int pacienteKey, int demografiaPacienteKey, long fechaSolicitudKey, long fechaAtencionKey, int diagnosticoKey, int preexistenciaKey, int ipsKey) {
         this.medicoKey = medicoKey;
         this.pacienteKey = pacienteKey;
         this.demografiaPacienteKey = demografiaPacienteKey;
-        this.fechaKey = fechaKey;
+        this.fechaSolicitudKey = fechaSolicitudKey;
+        this.fechaAtencionKey = fechaAtencionKey;
         this.diagnosticoKey = diagnosticoKey;
         this.preexistenciaKey = preexistenciaKey;
-        this.servicioPosKey = servicioPosKey;
         this.ipsKey = ipsKey;
     }
 
@@ -78,12 +78,20 @@ public class CitasBodegaPK implements Serializable {
         this.demografiaPacienteKey = demografiaPacienteKey;
     }
 
-    public long getFechaKey() {
-        return fechaKey;
+    public long getFechaSolicitudKey() {
+        return fechaSolicitudKey;
     }
 
-    public void setFechaKey(long fechaKey) {
-        this.fechaKey = fechaKey;
+    public void setFechaSolicitudKey(long fechaSolicitudKey) {
+        this.fechaSolicitudKey = fechaSolicitudKey;
+    }
+
+    public long getFechaAtencionKey() {
+        return fechaAtencionKey;
+    }
+
+    public void setFechaAtencionKey(long fechaAtencionKey) {
+        this.fechaAtencionKey = fechaAtencionKey;
     }
 
     public int getDiagnosticoKey() {
@@ -102,14 +110,6 @@ public class CitasBodegaPK implements Serializable {
         this.preexistenciaKey = preexistenciaKey;
     }
 
-    public int getServicioPosKey() {
-        return servicioPosKey;
-    }
-
-    public void setServicioPosKey(int servicioPosKey) {
-        this.servicioPosKey = servicioPosKey;
-    }
-
     public int getIpsKey() {
         return ipsKey;
     }
@@ -124,10 +124,10 @@ public class CitasBodegaPK implements Serializable {
         hash += (int) medicoKey;
         hash += (int) pacienteKey;
         hash += (int) demografiaPacienteKey;
-        hash += (int) fechaKey;
+        hash += (int) fechaSolicitudKey;
+        hash += (int) fechaAtencionKey;
         hash += (int) diagnosticoKey;
         hash += (int) preexistenciaKey;
-        hash += (int) servicioPosKey;
         hash += (int) ipsKey;
         return hash;
     }
@@ -148,16 +148,16 @@ public class CitasBodegaPK implements Serializable {
         if (this.demografiaPacienteKey != other.demografiaPacienteKey) {
             return false;
         }
-        if (this.fechaKey != other.fechaKey) {
+        if (this.fechaSolicitudKey != other.fechaSolicitudKey) {
+            return false;
+        }
+        if (this.fechaAtencionKey != other.fechaAtencionKey) {
             return false;
         }
         if (this.diagnosticoKey != other.diagnosticoKey) {
             return false;
         }
         if (this.preexistenciaKey != other.preexistenciaKey) {
-            return false;
-        }
-        if (this.servicioPosKey != other.servicioPosKey) {
             return false;
         }
         if (this.ipsKey != other.ipsKey) {
@@ -168,7 +168,7 @@ public class CitasBodegaPK implements Serializable {
 
     @Override
     public String toString() {
-        return "Entidades_Bodega.CitasBodegaPK[ medicoKey=" + medicoKey + ", pacienteKey=" + pacienteKey + ", demografiaPacienteKey=" + demografiaPacienteKey + ", fechaKey=" + fechaKey + ", diagnosticoKey=" + diagnosticoKey + ", preexistenciaKey=" + preexistenciaKey + ", servicioPosKey=" + servicioPosKey + ", ipsKey=" + ipsKey + " ]";
+        return "Entidades_Bodega.CitasBodegaPK[ medicoKey=" + medicoKey + ", pacienteKey=" + pacienteKey + ", demografiaPacienteKey=" + demografiaPacienteKey + ", fechaSolicitudKey=" + fechaSolicitudKey + ", fechaAtencionKey=" + fechaAtencionKey + ", diagnosticoKey=" + diagnosticoKey + ", preexistenciaKey=" + preexistenciaKey + ", ipsKey=" + ipsKey + " ]";
     }
     
 }

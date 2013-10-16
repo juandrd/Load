@@ -43,14 +43,14 @@ public class CitasBodegaJpaController implements Serializable {
         if (citasBodega.getCitasBodegaPK() == null) {
             citasBodega.setCitasBodegaPK(new CitasBodegaPK());
         }
-        citasBodega.getCitasBodegaPK().setDiagnosticoKey(citasBodega.getDiagnosticoBodega().getDiagnosticoKey());
-        citasBodega.getCitasBodegaPK().setDemografiaPacienteKey(citasBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
-        citasBodega.getCitasBodegaPK().setServicioPosKey(citasBodega.getServicioPosBodega().getServicioPosKey());
-        citasBodega.getCitasBodegaPK().setFechaKey(citasBodega.getDates().getDateId());
-        citasBodega.getCitasBodegaPK().setPacienteKey(citasBodega.getPacienteBodega().getPacienteKey());
-        citasBodega.getCitasBodegaPK().setMedicoKey(citasBodega.getMedicoBodega().getMedicoKey());
+        citasBodega.getCitasBodegaPK().setFechaAtencionKey(citasBodega.getDates().getDateId());
         citasBodega.getCitasBodegaPK().setPreexistenciaKey(citasBodega.getPreexistenciaBodega().getPreexistenciaKey());
+        citasBodega.getCitasBodegaPK().setPacienteKey(citasBodega.getPacienteBodega().getPacienteKey());
+        citasBodega.getCitasBodegaPK().setFechaSolicitudKey(citasBodega.getDates1().getDateId());
+        citasBodega.getCitasBodegaPK().setMedicoKey(citasBodega.getMedicoBodega().getMedicoKey());
+        citasBodega.getCitasBodegaPK().setDiagnosticoKey(citasBodega.getDiagnosticoBodega().getDiagnosticoKey());
         citasBodega.getCitasBodegaPK().setIpsKey(citasBodega.getIpsBodega().getIpsKey());
+        citasBodega.getCitasBodegaPK().setDemografiaPacienteKey(citasBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -74,6 +74,11 @@ public class CitasBodegaJpaController implements Serializable {
             if (dates != null) {
                 dates = em.getReference(dates.getClass(), dates.getDateId());
                 citasBodega.setDates(dates);
+            }
+            Dates dates1 = citasBodega.getDates1();
+            if (dates1 != null) {
+                dates1 = em.getReference(dates1.getClass(), dates1.getDateId());
+                citasBodega.setDates1(dates1);
             }
             DemografiaPacienteBodega demografiaPacienteBodega = citasBodega.getDemografiaPacienteBodega();
             if (demografiaPacienteBodega != null) {
@@ -107,6 +112,10 @@ public class CitasBodegaJpaController implements Serializable {
                 dates.getCitasBodegaList().add(citasBodega);
                 dates = em.merge(dates);
             }
+            if (dates1 != null) {
+                dates1.getCitasBodegaList().add(citasBodega);
+                dates1 = em.merge(dates1);
+            }
             if (demografiaPacienteBodega != null) {
                 demografiaPacienteBodega.getCitasBodegaList().add(citasBodega);
                 demografiaPacienteBodega = em.merge(demografiaPacienteBodega);
@@ -133,14 +142,14 @@ public class CitasBodegaJpaController implements Serializable {
     }
 
     public void edit(CitasBodega citasBodega) throws NonexistentEntityException, Exception {
-        citasBodega.getCitasBodegaPK().setDiagnosticoKey(citasBodega.getDiagnosticoBodega().getDiagnosticoKey());
-        citasBodega.getCitasBodegaPK().setDemografiaPacienteKey(citasBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
-        citasBodega.getCitasBodegaPK().setServicioPosKey(citasBodega.getServicioPosBodega().getServicioPosKey());
-        citasBodega.getCitasBodegaPK().setFechaKey(citasBodega.getDates().getDateId());
-        citasBodega.getCitasBodegaPK().setPacienteKey(citasBodega.getPacienteBodega().getPacienteKey());
-        citasBodega.getCitasBodegaPK().setMedicoKey(citasBodega.getMedicoBodega().getMedicoKey());
+        citasBodega.getCitasBodegaPK().setFechaAtencionKey(citasBodega.getDates().getDateId());
         citasBodega.getCitasBodegaPK().setPreexistenciaKey(citasBodega.getPreexistenciaBodega().getPreexistenciaKey());
+        citasBodega.getCitasBodegaPK().setPacienteKey(citasBodega.getPacienteBodega().getPacienteKey());
+        citasBodega.getCitasBodegaPK().setFechaSolicitudKey(citasBodega.getDates1().getDateId());
+        citasBodega.getCitasBodegaPK().setMedicoKey(citasBodega.getMedicoBodega().getMedicoKey());
+        citasBodega.getCitasBodegaPK().setDiagnosticoKey(citasBodega.getDiagnosticoBodega().getDiagnosticoKey());
         citasBodega.getCitasBodegaPK().setIpsKey(citasBodega.getIpsBodega().getIpsKey());
+        citasBodega.getCitasBodegaPK().setDemografiaPacienteKey(citasBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -154,6 +163,8 @@ public class CitasBodegaJpaController implements Serializable {
             DiagnosticoBodega diagnosticoBodegaNew = citasBodega.getDiagnosticoBodega();
             Dates datesOld = persistentCitasBodega.getDates();
             Dates datesNew = citasBodega.getDates();
+            Dates dates1Old = persistentCitasBodega.getDates1();
+            Dates dates1New = citasBodega.getDates1();
             DemografiaPacienteBodega demografiaPacienteBodegaOld = persistentCitasBodega.getDemografiaPacienteBodega();
             DemografiaPacienteBodega demografiaPacienteBodegaNew = citasBodega.getDemografiaPacienteBodega();
             PacienteBodega pacienteBodegaOld = persistentCitasBodega.getPacienteBodega();
@@ -175,6 +186,10 @@ public class CitasBodegaJpaController implements Serializable {
             if (datesNew != null) {
                 datesNew = em.getReference(datesNew.getClass(), datesNew.getDateId());
                 citasBodega.setDates(datesNew);
+            }
+            if (dates1New != null) {
+                dates1New = em.getReference(dates1New.getClass(), dates1New.getDateId());
+                citasBodega.setDates1(dates1New);
             }
             if (demografiaPacienteBodegaNew != null) {
                 demografiaPacienteBodegaNew = em.getReference(demografiaPacienteBodegaNew.getClass(), demografiaPacienteBodegaNew.getDemografiaPacienteKey());
@@ -220,6 +235,14 @@ public class CitasBodegaJpaController implements Serializable {
             if (datesNew != null && !datesNew.equals(datesOld)) {
                 datesNew.getCitasBodegaList().add(citasBodega);
                 datesNew = em.merge(datesNew);
+            }
+            if (dates1Old != null && !dates1Old.equals(dates1New)) {
+                dates1Old.getCitasBodegaList().remove(citasBodega);
+                dates1Old = em.merge(dates1Old);
+            }
+            if (dates1New != null && !dates1New.equals(dates1Old)) {
+                dates1New.getCitasBodegaList().add(citasBodega);
+                dates1New = em.merge(dates1New);
             }
             if (demografiaPacienteBodegaOld != null && !demografiaPacienteBodegaOld.equals(demografiaPacienteBodegaNew)) {
                 demografiaPacienteBodegaOld.getCitasBodegaList().remove(citasBodega);
@@ -293,6 +316,11 @@ public class CitasBodegaJpaController implements Serializable {
             if (dates != null) {
                 dates.getCitasBodegaList().remove(citasBodega);
                 dates = em.merge(dates);
+            }
+            Dates dates1 = citasBodega.getDates1();
+            if (dates1 != null) {
+                dates1.getCitasBodegaList().remove(citasBodega);
+                dates1 = em.merge(dates1);
             }
             DemografiaPacienteBodega demografiaPacienteBodega = citasBodega.getDemografiaPacienteBodega();
             if (demografiaPacienteBodega != null) {

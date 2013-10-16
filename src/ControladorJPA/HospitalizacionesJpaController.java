@@ -6,6 +6,9 @@ package ControladorJPA;
 
 import ControladorJPA.exceptions.NonexistentEntityException;
 import ControladorJPA.exceptions.PreexistingEntityException;
+import ControladorJPABodega.DiagnosticoBodegaJpaController;
+import ControladorJPABodega.FabricaBodega;
+import Entidades_Bodega.DiagnosticoBodega;
 import Entidades_DB.Hospitalizaciones;
 import java.io.Serializable;
 import javax.persistence.Query;
@@ -22,7 +25,7 @@ import javax.persistence.EntityManagerFactory;
  * @author USER
  */
 public class HospitalizacionesJpaController implements Serializable {
-
+private FabricaBodega fabrica_bodega;
     public HospitalizacionesJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
@@ -167,6 +170,33 @@ public class HospitalizacionesJpaController implements Serializable {
             return ((Long) q.getSingleResult()).intValue();
         } finally {
             em.close();
+        }
+    }
+    
+        public void crearDiagnostico() throws ControladorJPABodega.exceptions.PreexistingEntityException, Exception {
+        fabrica_bodega = new FabricaBodega();
+        DiagnosticoBodegaJpaController controladorDiag = new DiagnosticoBodegaJpaController(fabrica_bodega.getFactory());
+
+        List lista;
+        lista = findHospitalizacionesEntities();
+        int contador = 0;
+
+        contador = controladorDiag.getDiagnosticoBodegaCount();
+        System.err.println("Hospitalizacion"+contador);
+        for (int i = 0; i < lista.size(); i++) {
+
+            Hospitalizaciones h = (Hospitalizaciones) lista.get(i);
+            DiagnosticoBodega diag = new DiagnosticoBodega();
+
+            if (controladorDiag.consultarPorNombre(h.getDiagnostico().toString())) {
+            //    System.err.println(contador + 1 + " " + cita.getDiagnostico().toString());
+            } else {
+                diag.setDiagnosticoKey(contador + 1);
+                System.out.println(contador + 1 + " " + h.getDiagnostico().toString());
+                diag.setDescripcion(h.getDiagnostico().toString());
+                controladorDiag.create(diag);
+                contador++;
+            }
         }
     }
     

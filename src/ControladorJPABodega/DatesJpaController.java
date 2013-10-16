@@ -554,7 +554,7 @@ public class DatesJpaController implements Serializable {
         java.util.Date fechaAnterior = null, fechaPosterior;
         fechaAnterior=fAnterior.getDate();
         fechaPosterior=fPosterior.getDate();
-        long diferencia= ( fechaAnterior.getTime() - fechaPosterior.getTime() );
+        long diferencia= ( fechaAnterior.getTime() - fechaPosterior.getTime() )/ 86400000/*milisegundos por dia*/; 
        // System.out.println("f anterior "+fechaAnterior+",f posterior "+fechaPosterior+", diferencia "+diferencia);
       
         return diferencia;
