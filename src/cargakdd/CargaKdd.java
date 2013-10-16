@@ -5,7 +5,6 @@
 package cargakdd;
 
 import ControladorJPABodega.exceptions.PreexistingEntityException;
-import cargaKdd.MedicamentoCarga;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -94,15 +93,15 @@ public class CargaKdd {
         
 //           //-------------------------------
         
-//         //Carga Retiros
-//        RetirosCarga retiro = new RetirosCarga();
-//        try {
-//            retiro.carga();
-//        } catch (PreexistingEntityException ex) {
-//            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (Exception ex) {
-//            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+         //Carga Retiros
+        RetirosCarga retiro = new RetirosCarga();
+        try {
+            retiro.carga();
+        } catch (PreexistingEntityException ex) {
+            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+        }
 //        
         
 //                 //-------------------------------
@@ -141,17 +140,17 @@ public class CargaKdd {
 //            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //        
-                            //    -------------------------------        
-         //Carga Urgencia
-        UrgenciasCarga urgencia = new UrgenciasCarga();
-        try {
-            urgencia.carga();
-        } 
-        catch (PreexistingEntityException ex) {
-            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//                            //    -------------------------------        
+//         //Carga Urgencia
+//        UrgenciasCarga urgencia = new UrgenciasCarga();
+//        try {
+//            urgencia.carga();
+//        } 
+//        catch (PreexistingEntityException ex) {
+//            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (Exception ex) {
+//            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
 //                                    //    -------------------------------        
 //         //Carga Citas

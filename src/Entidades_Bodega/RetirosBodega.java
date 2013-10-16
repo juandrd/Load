@@ -5,6 +5,7 @@
 package Entidades_Bodega;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -25,11 +26,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "RetirosBodega.findAll", query = "SELECT r FROM RetirosBodega r"),
     @NamedQuery(name = "RetirosBodega.findByPacienteKey", query = "SELECT r FROM RetirosBodega r WHERE r.retirosBodegaPK.pacienteKey = :pacienteKey"),
     @NamedQuery(name = "RetirosBodega.findByDemografiaPacienteKey", query = "SELECT r FROM RetirosBodega r WHERE r.retirosBodegaPK.demografiaPacienteKey = :demografiaPacienteKey"),
-    @NamedQuery(name = "RetirosBodega.findByFechaKey", query = "SELECT r FROM RetirosBodega r WHERE r.retirosBodegaPK.fechaKey = :fechaKey")})
+    @NamedQuery(name = "RetirosBodega.findByFechaKey", query = "SELECT r FROM RetirosBodega r WHERE r.retirosBodegaPK.fechaKey = :fechaKey"),
+    @NamedQuery(name = "RetirosBodega.findByNuevaEPS", query = "SELECT r FROM RetirosBodega r WHERE r.nuevaEPS = :nuevaEPS")})
 public class RetirosBodega implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected RetirosBodegaPK retirosBodegaPK;
+    @Column(name = "nueva_EPS")
+    private String nuevaEPS;
     @JoinColumn(name = "fecha_key", referencedColumnName = "date_id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Dates dates;
@@ -57,6 +61,14 @@ public class RetirosBodega implements Serializable {
 
     public void setRetirosBodegaPK(RetirosBodegaPK retirosBodegaPK) {
         this.retirosBodegaPK = retirosBodegaPK;
+    }
+
+    public String getNuevaEPS() {
+        return nuevaEPS;
+    }
+
+    public void setNuevaEPS(String nuevaEPS) {
+        this.nuevaEPS = nuevaEPS;
     }
 
     public Dates getDates() {

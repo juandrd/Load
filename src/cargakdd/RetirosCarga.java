@@ -98,6 +98,10 @@ public class RetirosCarga {
             retiroNuevo.setDates(f);
             retiroNuevo.setDemografiaPacienteBodega(demog);
             retiroNuevo.setPacienteBodega(p);
+            if(retiro.getCambioAEPS().equalsIgnoreCase("")){
+                retiroNuevo.setNuevaEPS("Sin registro");
+            }else{
+            retiroNuevo.setNuevaEPS(retiro.getCambioAEPS());}
             retiroNuevo.setRetirosBodegaPK(pk);
             controladorRetiroBodega.create(retiroNuevo);
 

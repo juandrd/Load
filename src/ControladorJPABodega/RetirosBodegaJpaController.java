@@ -40,8 +40,8 @@ public class RetirosBodegaJpaController implements Serializable {
             retirosBodega.setRetirosBodegaPK(new RetirosBodegaPK());
         }
         retirosBodega.getRetirosBodegaPK().setFechaKey(retirosBodega.getDates().getDateId());
-        retirosBodega.getRetirosBodegaPK().setPacienteKey(retirosBodega.getPacienteBodega().getPacienteKey());
         retirosBodega.getRetirosBodegaPK().setDemografiaPacienteKey(retirosBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
+        retirosBodega.getRetirosBodegaPK().setPacienteKey(retirosBodega.getPacienteBodega().getPacienteKey());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -89,8 +89,8 @@ public class RetirosBodegaJpaController implements Serializable {
 
     public void edit(RetirosBodega retirosBodega) throws NonexistentEntityException, Exception {
         retirosBodega.getRetirosBodegaPK().setFechaKey(retirosBodega.getDates().getDateId());
-        retirosBodega.getRetirosBodegaPK().setPacienteKey(retirosBodega.getPacienteBodega().getPacienteKey());
         retirosBodega.getRetirosBodegaPK().setDemografiaPacienteKey(retirosBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
+        retirosBodega.getRetirosBodegaPK().setPacienteKey(retirosBodega.getPacienteBodega().getPacienteKey());
         EntityManager em = null;
         try {
             em = getEntityManager();
