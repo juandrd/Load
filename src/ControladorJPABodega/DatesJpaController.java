@@ -503,6 +503,15 @@ public class DatesJpaController implements Serializable {
       
         return diferencia;
      }
-    
+      public long diferenciaHoras(Dates fAnterior, Dates fPosterior){
+        java.util.Date fechaAnterior = null, fechaPosterior;
+        fechaAnterior=fAnterior.getDate();
+        fechaPosterior=fPosterior.getDate();
+        long diferencia= ( fechaAnterior.getTime() - fechaPosterior.getTime() )/ 60000/*milisegundos por minutos*/; 
+        System.out.println("f anterior "+fechaAnterior+",f posterior "+fechaPosterior+", diferencia "+diferencia);
+      
+        return diferencia;
+     }
+      
     
 }

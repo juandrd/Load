@@ -96,7 +96,7 @@ public class UrgenciasCarga {
 //
 //            }
 
-            System.out.println("urgencia "+u.getCodigoUrgencia());
+           
             
 //            System.err.println("Id " + user);
 
@@ -107,10 +107,13 @@ public class UrgenciasCarga {
             Dates fecha_solicitud = date.consultar(u.getFechaSolicitud().toString());            
             Dates fecha_atencion = date.consultar(u.getFechaAtencion().toString());
             
-            long diasDiferencia=date.diferenciaDias(fecha_atencion, fecha_solicitud);
+            fecha_solicitud.setDate(u.getHoraSolicitud());
+            fecha_atencion.setDate(u.getHoraAtencion());
+            
+            
+            long horasDiferencia=date.diferenciaHoras(fecha_atencion, fecha_solicitud);
 
-            System.err.println(u.getIDMedico().getCedula().toString());
-            PreexistenciaBodega pre = preexistencia.consultar(user);
+               PreexistenciaBodega pre = preexistencia.consultar(user);
             MedicoBodega med=medico.consultar(u.getIDMedico().getCedula().toString());
            
             
@@ -142,11 +145,11 @@ public class UrgenciasCarga {
              //para aÃ±adir campos
 
             urgenciaNueva.setDates(fecha_atencion);
-            System.out.println("Id paciente "+p.getPacienteKey());
-             System.out.println("Demografia "+demog.getDemografiaPacienteKey());
-             System.out.println("Fecha Soli "+fecha_solicitud);
-              System.out.println("Fecha Aten "+fecha_atencion);
-               System.out.println("Empresa "+emp.getEmpresaKey());
+//            System.out.println("Id paciente "+p.getPacienteKey());
+//             System.out.println("Demografia "+demog.getDemografiaPacienteKey());
+//             System.out.println("Fecha Soli "+fecha_solicitud);
+//              System.out.println("Fecha Aten "+fecha_atencion);
+//               System.out.println("Empresa "+emp.getEmpresaKey());
                 
                
              
@@ -160,7 +163,7 @@ public class UrgenciasCarga {
             System.out.println("diag "+diag);
             urgenciaNueva.setIpsKey(ipsEntidad);
             urgenciaNueva.setMedicoId(med.getMedicoKey());
-            urgenciaNueva.setTiempoEsperaAtencion((int)diasDiferencia);            
+            urgenciaNueva.setTiempoEsperaAtencion((int)horasDiferencia);            
            
             controladorUrgenciaBodega.create(urgenciaNueva);
             contador++;
