@@ -118,6 +118,7 @@ public class CitasCarga {
             citaNueva.setTiempoEsperaAtencion((int) diasDiferencia);
             citaNueva.setTipoCita("GENERAL");
             citaNueva.setDuracionHospitalizacion(0);
+            citaNueva.setCosto(15850);
             citaNueva.setHoraAtencion(citaGeneral.getHoraAtencion());
                       
 
@@ -170,6 +171,7 @@ public class CitasCarga {
             citaNueva.setMedicoBodega(med);
             citaNueva.setTiempoEsperaAtencion((int) diasDiferencia);
             citaNueva.setTipoCita("HOSPITALIZACION");
+            citaNueva.setCosto(45000);
             citaNueva.setHoraAtencion(hospitalizacion.getHoraAtencion());
             citaNueva.setDuracionHospitalizacion(hospitalizacion.getDuracionHospitalizacion());
                       

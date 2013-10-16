@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CitasBodega.findByTipoCita", query = "SELECT c FROM CitasBodega c WHERE c.tipoCita = :tipoCita"),
     @NamedQuery(name = "CitasBodega.findByTiempoEsperaAtencion", query = "SELECT c FROM CitasBodega c WHERE c.tiempoEsperaAtencion = :tiempoEsperaAtencion"),
     @NamedQuery(name = "CitasBodega.findByHoraAtencion", query = "SELECT c FROM CitasBodega c WHERE c.horaAtencion = :horaAtencion"),
+    @NamedQuery(name = "CitasBodega.findByCosto", query = "SELECT c FROM CitasBodega c WHERE c.costo = :costo"),
     @NamedQuery(name = "CitasBodega.findByDuracionHospitalizacion", query = "SELECT c FROM CitasBodega c WHERE c.duracionHospitalizacion = :duracionHospitalizacion")})
 public class CitasBodega implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -50,6 +51,8 @@ public class CitasBodega implements Serializable {
     @Column(name = "hora_atencion")
     @Temporal(TemporalType.TIME)
     private Date horaAtencion;
+    @Column(name = "costo")
+    private Integer costo;
     @Column(name = "duracion_hospitalizacion")
     private Integer duracionHospitalizacion;
     @JoinColumn(name = "ips_key", referencedColumnName = "ips_key", insertable = false, updatable = false)
@@ -118,6 +121,14 @@ public class CitasBodega implements Serializable {
 
     public void setHoraAtencion(Date horaAtencion) {
         this.horaAtencion = horaAtencion;
+    }
+
+    public Integer getCosto() {
+        return costo;
+    }
+
+    public void setCosto(Integer costo) {
+        this.costo = costo;
     }
 
     public Integer getDuracionHospitalizacion() {

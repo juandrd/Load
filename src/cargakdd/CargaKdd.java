@@ -153,17 +153,17 @@ public class CargaKdd {
 //            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
 //        }
         
-//                                    //    -------------------------------        
-//         //Carga Citas
-//        CitasCarga citas = new CitasCarga();
-//        try {
-//            citas.carga();
-//        } 
-//        catch (PreexistingEntityException ex) {
-//            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (Exception ex) {
-//            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+                                    //    -------------------------------        
+         //Carga Citas
+        CitasCarga citas = new CitasCarga();
+        try {
+            citas.carga();
+        } 
+        catch (PreexistingEntityException ex) {
+            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(CargaKdd.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
 //                                      //    -------------------------------        
 //         //Carga Remision

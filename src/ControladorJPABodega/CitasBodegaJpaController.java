@@ -43,14 +43,14 @@ public class CitasBodegaJpaController implements Serializable {
         if (citasBodega.getCitasBodegaPK() == null) {
             citasBodega.setCitasBodegaPK(new CitasBodegaPK());
         }
-        citasBodega.getCitasBodegaPK().setFechaAtencionKey(citasBodega.getDates().getDateId());
         citasBodega.getCitasBodegaPK().setPreexistenciaKey(citasBodega.getPreexistenciaBodega().getPreexistenciaKey());
+        citasBodega.getCitasBodegaPK().setDemografiaPacienteKey(citasBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
         citasBodega.getCitasBodegaPK().setPacienteKey(citasBodega.getPacienteBodega().getPacienteKey());
-        citasBodega.getCitasBodegaPK().setFechaSolicitudKey(citasBodega.getDates1().getDateId());
         citasBodega.getCitasBodegaPK().setMedicoKey(citasBodega.getMedicoBodega().getMedicoKey());
+        citasBodega.getCitasBodegaPK().setFechaAtencionKey(citasBodega.getDates().getDateId());
         citasBodega.getCitasBodegaPK().setDiagnosticoKey(citasBodega.getDiagnosticoBodega().getDiagnosticoKey());
         citasBodega.getCitasBodegaPK().setIpsKey(citasBodega.getIpsBodega().getIpsKey());
-        citasBodega.getCitasBodegaPK().setDemografiaPacienteKey(citasBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
+        citasBodega.getCitasBodegaPK().setFechaSolicitudKey(citasBodega.getDates1().getDateId());
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -142,14 +142,14 @@ public class CitasBodegaJpaController implements Serializable {
     }
 
     public void edit(CitasBodega citasBodega) throws NonexistentEntityException, Exception {
-        citasBodega.getCitasBodegaPK().setFechaAtencionKey(citasBodega.getDates().getDateId());
         citasBodega.getCitasBodegaPK().setPreexistenciaKey(citasBodega.getPreexistenciaBodega().getPreexistenciaKey());
+        citasBodega.getCitasBodegaPK().setDemografiaPacienteKey(citasBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
         citasBodega.getCitasBodegaPK().setPacienteKey(citasBodega.getPacienteBodega().getPacienteKey());
-        citasBodega.getCitasBodegaPK().setFechaSolicitudKey(citasBodega.getDates1().getDateId());
         citasBodega.getCitasBodegaPK().setMedicoKey(citasBodega.getMedicoBodega().getMedicoKey());
+        citasBodega.getCitasBodegaPK().setFechaAtencionKey(citasBodega.getDates().getDateId());
         citasBodega.getCitasBodegaPK().setDiagnosticoKey(citasBodega.getDiagnosticoBodega().getDiagnosticoKey());
         citasBodega.getCitasBodegaPK().setIpsKey(citasBodega.getIpsBodega().getIpsKey());
-        citasBodega.getCitasBodegaPK().setDemografiaPacienteKey(citasBodega.getDemografiaPacienteBodega().getDemografiaPacienteKey());
+        citasBodega.getCitasBodegaPK().setFechaSolicitudKey(citasBodega.getDates1().getDateId());
         EntityManager em = null;
         try {
             em = getEntityManager();
